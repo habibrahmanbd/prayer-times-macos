@@ -9,7 +9,7 @@
 # install the same notarized artifact.
 cask "prayer-times" do
   version "0.1.0"
-  sha256 "REPLACE_WITH_RELEASE_ZIP_SHA256"
+  sha256 "46db2db80fa983a64b4eeb8f63a2d03428fff2eba70a64722a0446705b040212"
 
   url "https://github.com/tareq1988/prayer-times-macos/releases/download/v#{version}/PrayerTimes-#{version}.zip"
   name "Prayer Times"
@@ -21,6 +21,14 @@ cask "prayer-times" do
   depends_on macos: ">= :sonoma"
 
   app "Prayer Times.app"
+
+  caveats <<~EOS
+    This build is ad-hoc signed (not yet notarized). If macOS blocks it, either
+    install with --no-quarantine:
+      brew install --cask --no-quarantine #{token}
+    or remove the quarantine attribute after install:
+      xattr -dr com.apple.quarantine "/Applications/Prayer Times.app"
+  EOS
 
   zap trash: [
     "~/Library/Preferences/com.wedevs.prayertimes.plist",
