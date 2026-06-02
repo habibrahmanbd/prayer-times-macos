@@ -33,7 +33,7 @@ Run Sparkle's `generate_keys` once (from a Sparkle release tarball):
 | `SPARKLE_ED_PRIVATE_KEY` | exported Sparkle private key |
 
 ### 4. Hosting the appcast
-- Point `SUFeedURL` (Info.plist) at `https://<user>.github.io/prayer-times/appcast.xml`.
+- Point `SUFeedURL` (Info.plist) at `https://tareq1988.github.io/prayer-times-macos/appcast.xml`.
 - Enable **GitHub Pages** for the repo, serving from `/docs` on `main`.
 - The workflow commits the regenerated `docs/appcast.xml` each release.
 
@@ -42,7 +42,7 @@ Run Sparkle's `generate_keys` once (from a Sparkle release tarball):
 - `SUFeedURL` → your appcast URL.
 
 ### 6. Homebrew tap
-- Create a tap repo `github.com/<you>/homebrew-tap`.
+- Create a tap repo `github.com/tareq1988/homebrew-tap`.
 - Copy `Casks/prayer-times.rb` there and fill `url` / `homepage`.
 - Each release prints the new `version` + `sha256` (workflow log) — bump the cask
   (or automate with a PAT).

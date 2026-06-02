@@ -36,7 +36,7 @@
 	<!-- Sparkle auto-update (spec §7.8). Replace SUPublicEDKey with the public
 	     key from `generate_keys`, and point SUFeedURL at the hosted appcast. -->
 	<key>SUFeedURL</key>
-	<string>https://YOUR_GITHUB_USER.github.io/prayer-times/appcast.xml</string>
+	<string>https://tareq1988.github.io/prayer-times-macos/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>REPLACE_WITH_SPARKLE_ED_PUBLIC_KEY</string>
 	<key>SUEnableAutomaticChecks</key>

@@ -11,10 +11,10 @@ cask "prayer-times" do
   version "0.1.0"
   sha256 "REPLACE_WITH_RELEASE_ZIP_SHA256"
 
-  url "https://github.com/YOUR_GITHUB_USER/prayer-times/releases/download/v#{version}/PrayerTimes-#{version}.zip"
+  url "https://github.com/tareq1988/prayer-times-macos/releases/download/v#{version}/PrayerTimes-#{version}.zip"
   name "Prayer Times"
   desc "Menu bar app for Islamic prayer times"
-  homepage "https://github.com/YOUR_GITHUB_USER/prayer-times"
+  homepage "https://github.com/tareq1988/prayer-times-macos"
 
   # Sparkle handles in-app updates; let Homebrew defer to it.
   auto_updates true
