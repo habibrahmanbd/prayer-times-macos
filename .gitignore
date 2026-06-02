@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Xcode
+*.xcuserstate
+xcuserdata/
+DerivedData/
+*.xcscmblueprint
+*.xccheckout
+
+# Sparkle signing keys — never commit
+*.pem
+dsa_priv.pem
+ed25519_priv.pem
