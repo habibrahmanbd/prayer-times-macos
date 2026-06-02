@@ -9,7 +9,7 @@
 # install the same notarized artifact.
 cask "prayer-times" do
   version "0.1.0"
-  sha256 "46db2db80fa983a64b4eeb8f63a2d03428fff2eba70a64722a0446705b040212"
+  sha256 "c8a22190a805875160777131a5eff39e9487faff4477e9540e89f647121e7b91"
 
   url "https://github.com/tareq1988/prayer-times-macos/releases/download/v#{version}/PrayerTimes-#{version}.zip"
   name "Prayer Times"
@@ -31,7 +31,7 @@ cask "prayer-times" do
   EOS
 
   zap trash: [
-    "~/Library/Preferences/co.tareq.prayertimes.plist",
-    "~/Library/Caches/co.tareq.prayertimes",
+    "~/Library/Preferences/com.wedevs.prayertimes.plist",
+    "~/Library/Caches/com.wedevs.prayertimes",
   ]
 end
