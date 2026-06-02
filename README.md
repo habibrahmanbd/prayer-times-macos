@@ -16,9 +16,10 @@ brew install --cask tareq1988/tap/prayer-times
 **Direct download** — grab the latest `.zip` from
 [Releases](https://github.com/tareq1988/prayer-times-macos/releases/latest).
 
-> The current builds are ad-hoc signed (not yet notarized). On first launch,
-> **right-click the app → Open**, or install with `--no-quarantine`, or run
-> `xattr -dr com.apple.quarantine "/Applications/Prayer Times.app"`.
+> The current builds are ad-hoc signed (not yet notarized), so macOS Gatekeeper
+> blocks them on first launch. To open: run
+> `xattr -dr com.apple.quarantine "/Applications/Prayer Times.app"`, or go to
+> **System Settings → Privacy & Security → Open Anyway**.
 
 Requirements: **macOS 14 Sonoma or later** · Universal (Apple silicon + Intel).
 

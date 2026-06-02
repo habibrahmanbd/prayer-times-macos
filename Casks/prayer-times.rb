@@ -23,15 +23,16 @@ cask "prayer-times" do
   app "Prayer Times.app"
 
   caveats <<~EOS
-    This build is ad-hoc signed (not yet notarized). If macOS blocks it, either
-    install with --no-quarantine:
-      brew install --cask --no-quarantine #{token}
-    or remove the quarantine attribute after install:
+    This build is ad-hoc signed (not yet notarized), so macOS Gatekeeper blocks
+    it on first launch. To open it, remove the quarantine attribute:
+
       xattr -dr com.apple.quarantine "/Applications/Prayer Times.app"
+
+    Or: System Settings → Privacy & Security → "Open Anyway".
   EOS
 
   zap trash: [
-    "~/Library/Preferences/com.wedevs.prayertimes.plist",
-    "~/Library/Caches/com.wedevs.prayertimes",
+    "~/Library/Preferences/co.tareq.prayertimes.plist",
+    "~/Library/Caches/co.tareq.prayertimes",
   ]
 end
