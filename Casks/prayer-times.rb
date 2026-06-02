@@ -31,7 +31,7 @@ cask "prayer-times" do
   EOS
 
   zap trash: [
-    "~/Library/Preferences/com.wedevs.prayertimes.plist",
-    "~/Library/Caches/com.wedevs.prayertimes",
+    "~/Library/Preferences/co.tareq.prayertimes.plist",
+    "~/Library/Caches/co.tareq.prayertimes",
   ]
 end

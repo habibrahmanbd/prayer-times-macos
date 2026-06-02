@@ -1,6 +1,6 @@
 name: PrayerTimes
 options:
-  bundleIdPrefix: com.wedevs
+  bundleIdPrefix: co.tareq
   deploymentTarget:
     macOS: "14.0"
   createIntermediateGroups: true
@@ -36,7 +36,7 @@ targets:
         product: Sparkle
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.wedevs.prayertimes
+        PRODUCT_BUNDLE_IDENTIFIER: co.tareq.prayertimes
         PRODUCT_NAME: Prayer Times
         INFOPLIST_FILE: PrayerTimes/Supporting/Info.plist
         GENERATE_INFOPLIST_FILE: NO

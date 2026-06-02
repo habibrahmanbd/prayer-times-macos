@@ -30,7 +30,7 @@ final class SettingsStore {
     private(set) var locationError: String?
 
     /// App Group suite to adopt in M9 for widget sharing. nil → standard defaults.
-    static let appGroupSuite: String? = nil   // "group.com.wedevs.prayertimes"
+    static let appGroupSuite: String? = nil   // "group.co.tareq.prayertimes"
 
     init(location: LocationService, defaults: UserDefaults? = nil) {
         self.location = location

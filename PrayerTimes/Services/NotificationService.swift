@@ -13,7 +13,7 @@ import OSLog
 final class NotificationService: NSObject {
     private let audio: AudioService
     private let center = UNUserNotificationCenter.current()
-    private let log = Logger(subsystem: "com.wedevs.prayertimes", category: "notifications")
+    private let log = Logger(subsystem: "co.tareq.prayertimes", category: "notifications")
 
     private nonisolated static let adhanCategoryID = "PRAYER_ADHAN"
     private nonisolated static let stopAdhanActionID = "STOP_ADHAN"

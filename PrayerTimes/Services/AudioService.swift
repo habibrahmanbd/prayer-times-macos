@@ -18,7 +18,7 @@ final class AudioService: NSObject, AVAudioPlayerDelegate {
     private(set) var isPlaying = false
 
     @ObservationIgnored private var player: AVAudioPlayer?
-    @ObservationIgnored private let log = Logger(subsystem: "com.wedevs.prayertimes", category: "audio")
+    @ObservationIgnored private let log = Logger(subsystem: "co.tareq.prayertimes", category: "audio")
 
     /// Play the full Adhan associated with `sound` (Makkah/Madinah). No-op if the
     /// selection has no full file or the file isn't bundled.

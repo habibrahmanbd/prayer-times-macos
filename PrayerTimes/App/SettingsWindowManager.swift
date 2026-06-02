@@ -17,7 +17,7 @@ final class SettingsWindowManager: NSObject, NSWindowDelegate, NSToolbarDelegate
     private let audio: AudioService
     private let updates: UpdateService
     private var window: NSWindow?
-    private let log = Logger(subsystem: "com.wedevs.prayertimes", category: "settings")
+    private let log = Logger(subsystem: "co.tareq.prayertimes", category: "settings")
 
     /// Fixed pane size so the window doesn't jump between tabs; tall panes scroll.
     private static let paneSize = NSSize(width: 480, height: 520)
