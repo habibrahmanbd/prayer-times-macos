@@ -70,3 +70,21 @@ gh release create "$TAG" "$ZIP" \
   --target main
 
 echo "✓ Released: https://github.com/$REPO/releases/tag/$TAG"
+
+# 7. Bump the Homebrew cask in the tap (version + sha256).
+TAP_REPO="tareq1988/homebrew-tap"
+SHA=$(shasum -a 256 "$ZIP" | cut -d' ' -f1)
+TAP_DIR="$(mktemp -d)/homebrew-tap"
+if git clone -q "git@github.com:$TAP_REPO.git" "$TAP_DIR" 2>/dev/null; then
+  CASK="$TAP_DIR/Casks/prayer-times.rb"
+  sed -i '' -E "s/version \"[^\"]+\"/version \"$VERSION\"/; s/sha256 \"[^\"]+\"/sha256 \"$SHA\"/" "$CASK"
+  cp "$CASK" Casks/prayer-times.rb   # keep the in-repo reference copy in sync
+  ( cd "$TAP_DIR" && git add Casks/prayer-times.rb \
+      && git commit -q -m "chore: bump prayer-times to $VERSION" \
+      && git push -q origin main )
+  git add Casks/prayer-times.rb && git commit -q -m "chore(release): sync cask to $VERSION" || true
+  git push origin main || true
+  echo "✓ Homebrew cask bumped to $VERSION"
+else
+  echo "⚠ Could not clone $TAP_REPO; bump Casks/prayer-times.rb there manually (sha256: $SHA)"
+fi
