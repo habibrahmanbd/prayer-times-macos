@@ -146,6 +146,32 @@ public struct AppSettings: Codable, Sendable, Equatable {
         self.autoUpdateEnabled = autoUpdateEnabled
     }
 
+    /// Resilient decoding: every field is optional-with-default so that adding a
+    /// new property in a later release does not fail to decode an older persisted
+    /// blob (which would silently reset the user to first-run defaults). Each
+    /// missing key falls back to the memberwise-init default.
+    public init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        let d = AppSettings()
+        func get<T: Decodable>(_ key: CodingKeys, _ fallback: T) throws -> T {
+            try c.decodeIfPresent(T.self, forKey: key) ?? fallback
+        }
+        methodID = try get(.methodID, d.methodID)
+        manualParameters = try c.decodeIfPresent(CalculationParameters.self, forKey: .manualParameters)
+        hanafiAsr = try get(.hanafiAsr, d.hanafiAsr)
+        highLatitudeRule = try get(.highLatitudeRule, d.highLatitudeRule)
+        locationMode = try get(.locationMode, d.locationMode)
+        manualCoordinates = try c.decodeIfPresent(Coordinates.self, forKey: .manualCoordinates)
+        timeZoneMode = try get(.timeZoneMode, d.timeZoneMode)
+        autoDetectMethod = try get(.autoDetectMethod, d.autoDetectMethod)
+        menuBarStyle = try get(.menuBarStyle, d.menuBarStyle)
+        launchAtLogin = try get(.launchAtLogin, d.launchAtLogin)
+        languageOverride = try c.decodeIfPresent(String.self, forKey: .languageOverride)
+        masterNotificationsEnabled = try get(.masterNotificationsEnabled, d.masterNotificationsEnabled)
+        notifications = try get(.notifications, d.notifications)
+        autoUpdateEnabled = try get(.autoUpdateEnabled, d.autoUpdateEnabled)
+    }
+
     /// Sensible per-prayer defaults, including the product-owner examples:
     /// Dhuhr early reminder 20 min, Maghrib 10 min (§7.3). Sunrise gets a quiet
     /// config (no Adhan, no iqamah).
