@@ -1,4 +1,6 @@
 import SwiftUI
+import AppKit
+import UserNotifications
 import PrayerKit
 
 /// Notification settings (spec §7.3, §7.4): a master toggle plus the per-prayer
@@ -12,6 +14,20 @@ struct NotificationsTab: View {
 
     var body: some View {
         Form {
+            if let hint = systemPermissionHint {
+                Section {
+                    Label {
+                        Text(hint.message)
+                    } icon: {
+                        Image(systemName: "exclamationmark.triangle.fill").foregroundStyle(.orange)
+                    }
+                    .font(.callout)
+                    if hint.showsSystemSettingsButton {
+                        Button("Open System Settings") { Self.openNotificationSettings() }
+                    }
+                }
+            }
+
             Section {
                 Toggle("Enable notifications", isOn: $settings.settings.masterNotificationsEnabled)
                 Button {
@@ -29,6 +45,28 @@ struct NotificationsTab: View {
             }
         }
         .formStyle(.grouped)
+        .task { await notifications.refreshAuthorizationStatus() }
+    }
+
+    /// In-app explanation when notifications won't appear because macOS hasn't
+    /// granted permission — so the user isn't left wondering why nothing fires.
+    private var systemPermissionHint: (message: LocalizedStringKey, showsSystemSettingsButton: Bool)? {
+        switch notifications.authorizationStatus {
+        case .denied:
+            return ("macOS is blocking notifications for Prayer Times. Enable them in System Settings → Notifications to receive prayer alerts.",
+                    true)
+        case .notDetermined:
+            return ("Prayer Times hasn't been granted notification permission yet. Send a sample notification below to trigger the macOS prompt.",
+                    false)
+        default:
+            return nil
+        }
+    }
+
+    private static func openNotificationSettings() {
+        if let url = URL(string: "x-apple.systempreferences:com.apple.preference.notifications") {
+            NSWorkspace.shared.open(url)
+        }
     }
 
     private func config(for prayer: Prayer) -> Binding<PrayerNotificationConfig> {
