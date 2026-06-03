@@ -83,6 +83,9 @@ the menu bar, not a window or Dock icon.
 
 ## Milestones (see spec §14)
 
-M1 calculation core ✅ · M2 menu bar shell ✅ · M3 settings + persistence ·
-M4 notifications + audio + iqamah · M5 location auto-detect · M6 localization ·
-M7 Liquid Glass · M8 auto-update + distribution · M9 widget (nice-to-have).
+M1 calculation core ✅ · M2 menu bar shell ✅ · M3 settings + persistence ✅ ·
+M4 notifications + audio + iqamah ✅ · M5 location auto-detect ✅ ·
+M6 localization ✅ (en/ar/bn/tr, 100%) · M7 Liquid Glass ✅ ·
+M8 auto-update + distribution ✅ (Sparkle/appcast/cask; v0.2.1 shipped) ·
+M9 widget (nice-to-have) — remaining. See the `prayer-times-status` memory for
+the detailed per-milestone state.
