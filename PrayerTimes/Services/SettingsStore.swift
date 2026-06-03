@@ -26,6 +26,7 @@ final class SettingsStore {
     // Runtime auto-detect state (not persisted).
     private(set) var detectedCoordinates: Coordinates?
     private(set) var detectedCountryCode: String?
+    private(set) var detectedTimeZoneID: String?
     private(set) var isDetectingLocation = false
     private(set) var locationError: String?
 
@@ -77,6 +78,9 @@ final class SettingsStore {
     /// Detect location once and (if auto-detect-method is on) pick the method
     /// from the resolved country (spec §7.7).
     func detectLocation() async {
+        // Coalesce overlapping requests (e.g. launch auto-detect racing a manual
+        // toggle): a second call while one is in flight is a no-op.
+        guard !isDetectingLocation else { return }
         isDetectingLocation = true
         locationError = nil
         defer { isDetectingLocation = false }
@@ -87,14 +91,34 @@ final class SettingsStore {
                 longitude: loc.coordinate.longitude,
                 elevation: loc.altitude
             )
-            let code = await location.countryCode(for: loc)
-            detectedCountryCode = code
-            if settings.autoDetectMethod, let code {
+            let place = await location.place(for: loc)
+            detectedCountryCode = place.countryCode
+            detectedTimeZoneID = place.timeZone?.identifier
+            if settings.autoDetectMethod, let code = place.countryCode {
                 settings.methodID = MethodRegistry.methodID(forCountryCode: code)
+            }
+            // Lock the master timezone to the detected location so the coordinates
+            // and the clock always describe the same place. Only override when they
+            // actually differ, to avoid needlessly flipping "Follow system".
+            if let tz = place.timeZone, tz.identifier != resolvedTimeZone.identifier {
+                settings.timeZoneMode = .explicit(identifier: tz.identifier)
             }
         } catch {
             locationError = error.localizedDescription
         }
+    }
+
+    /// Warn when the detected location's timezone and the active master timezone
+    /// describe different places (e.g. the user manually picked a conflicting
+    /// zone after auto-detect) — prayer times would then be computed for one
+    /// place but shown on another's clock. nil when coherent or nothing detected.
+    var timeZoneMismatchWarning: String? {
+        guard settings.locationMode == .automatic,
+              let detected = detectedTimeZoneID,
+              detected != resolvedTimeZone.identifier
+        else { return nil }
+        return String(localized:
+            "Your timezone (\(resolvedTimeZone.identifier)) doesn't match your detected location (\(detected)). Prayer times may be wrong — switch the timezone to “Follow system” or the matching zone.")
     }
 
     /// The master timezone (system or explicit).

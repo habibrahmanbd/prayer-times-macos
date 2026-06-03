@@ -36,22 +36,38 @@ struct LocationTimeTab: View {
                     if let error = settings.locationError {
                         Text(error).font(.caption).foregroundStyle(.red)
                     } else if settings.detectedCoordinates == nil {
-                        Text("Falls back to the manual coordinates below until detected.")
+                        Text("Detect your location to compute prayer times for where you are.")
                             .font(.caption).foregroundStyle(.secondary)
+                    }
+                    if let warning = settings.timeZoneMismatchWarning {
+                        Label(warning, systemImage: "exclamationmark.triangle.fill")
+                            .font(.caption).foregroundStyle(.orange)
                     }
                 }
 
-                LabeledContent("Latitude") {
-                    TextField("Latitude", value: latBinding, format: .number.precision(.fractionLength(0...6)))
-                        .labelsHidden().frame(width: 120).multilineTextAlignment(.trailing)
-                }
-                LabeledContent("Longitude") {
-                    TextField("Longitude", value: lonBinding, format: .number.precision(.fractionLength(0...6)))
-                        .labelsHidden().frame(width: 120).multilineTextAlignment(.trailing)
-                }
-                LabeledContent("Elevation (m)") {
-                    TextField("Elevation", value: elevationBinding, format: .number.precision(.fractionLength(0...1)))
-                        .labelsHidden().frame(width: 120).multilineTextAlignment(.trailing)
+                // Automatic mode uses the detected coordinates (shown read-only so
+                // they can't drift from the location the times are computed for);
+                // manual mode exposes editable fields.
+                if settings.settings.locationMode == .automatic {
+                    LabeledContent("Latitude",
+                        value: String(format: "%.4f", settings.resolvedCoordinates.latitude))
+                    LabeledContent("Longitude",
+                        value: String(format: "%.4f", settings.resolvedCoordinates.longitude))
+                    LabeledContent("Elevation (m)",
+                        value: String(format: "%.0f", settings.resolvedCoordinates.elevation))
+                } else {
+                    LabeledContent("Latitude") {
+                        TextField("Latitude", value: latBinding, format: .number.precision(.fractionLength(0...6)))
+                            .labelsHidden().frame(width: 120).multilineTextAlignment(.trailing)
+                    }
+                    LabeledContent("Longitude") {
+                        TextField("Longitude", value: lonBinding, format: .number.precision(.fractionLength(0...6)))
+                            .labelsHidden().frame(width: 120).multilineTextAlignment(.trailing)
+                    }
+                    LabeledContent("Elevation (m)") {
+                        TextField("Elevation", value: elevationBinding, format: .number.precision(.fractionLength(0...1)))
+                            .labelsHidden().frame(width: 120).multilineTextAlignment(.trailing)
+                    }
                 }
             }
 

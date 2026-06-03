@@ -6,12 +6,14 @@ import OSLog
 enum LocationError: LocalizedError {
     case denied
     case noResult
+    case busy
     case failed(String)
 
     var errorDescription: String? {
         switch self {
         case .denied: return "Location access was denied. Enable it in System Settings → Privacy & Security → Location Services."
         case .noResult: return "No location was returned."
+        case .busy: return "A location request is already in progress."
         case .failed(let message): return message
         }
     }
@@ -39,8 +41,11 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
     }
 
     /// Fetch the current location once, prompting for authorization if needed.
+    /// Only one request may be in flight at a time: a concurrent call fails fast
+    /// with `.busy` rather than overwriting (and leaking) the pending continuation.
     func fetchCurrent() async throws -> CLLocation {
-        try await withCheckedThrowingContinuation { continuation in
+        guard continuation == nil else { throw LocationError.busy }
+        return try await withCheckedThrowingContinuation { continuation in
             self.continuation = continuation
             switch manager.authorizationStatus {
             case .notDetermined:
@@ -55,9 +60,18 @@ final class LocationService: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    /// ISO 3166-1 alpha-2 country code for a location, or nil.
-    func countryCode(for location: CLLocation) async -> String? {
-        try? await geocoder.reverseGeocodeLocation(location).first?.isoCountryCode
+    /// Reverse-geocoded facts about a location. Both come from a single placemark
+    /// so coordinates, country (→ method) and timezone always describe one place.
+    struct PlaceInfo: Sendable {
+        var countryCode: String?
+        var timeZone: TimeZone?
+    }
+
+    /// Reverse-geocode a location into its country code and timezone. CLGeocoder
+    /// is rate-limited, so we resolve both from one request.
+    func place(for location: CLLocation) async -> PlaceInfo {
+        let placemark = try? await geocoder.reverseGeocodeLocation(location).first
+        return PlaceInfo(countryCode: placemark?.isoCountryCode, timeZone: placemark?.timeZone)
     }
 
     // MARK: Continuation plumbing
