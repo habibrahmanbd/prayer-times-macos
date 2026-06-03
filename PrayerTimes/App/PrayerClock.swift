@@ -44,9 +44,17 @@ final class PrayerClock {
         today = Self.compute(inputs: inputs, dayOffset: 0, from: start)
         tomorrow = Self.compute(inputs: inputs, dayOffset: 1, from: start)
 
-        Task { await notifications.requestAuthorization() }
+        // Immediate schedule covers the common relaunch case (permission already
+        // granted). On a fresh install the authorization prompt resolves
+        // asynchronously, so reschedule once it does — otherwise the first day's
+        // notifications register while status is still `notDetermined` and never
+        // get re-added against the granted permission.
         scheduleNotifications()
         startTicking()
+        Task { [weak self] in
+            await notifications.requestAuthorization()
+            self?.scheduleNotifications()
+        }
     }
 
     // MARK: Derived values (read live from settings)
@@ -122,8 +130,14 @@ final class PrayerClock {
     /// Play the full Adhan in-process for any prayer whose instant falls in
     /// `(start, end]` and has full-Adhan playback enabled (spec §9). Reliable
     /// because the agent is always running.
+    ///
+    /// A healthy tick advances ~1 s. A much larger gap means the loop was
+    /// suspended (system sleep), so any prayer "crossed" in that window already
+    /// passed while asleep — replaying its Adhan now would be wrong. Skip those.
+    private static let maxAdhanCatchUp: TimeInterval = 10
     private func fireAdhanIfCrossed(from start: Date, to end: Date) {
         guard settings.settings.masterNotificationsEnabled else { return }
+        guard end.timeIntervalSince(start) <= Self.maxAdhanCatchUp else { return }
         for (prayer, time) in today.times where time > start && time <= end {
             let cfg = settings.settings.notifications[prayer] ?? PrayerNotificationConfig()
             if cfg.prayerNotificationEnabled, cfg.playFullAdhan {
