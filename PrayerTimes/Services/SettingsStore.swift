@@ -40,6 +40,21 @@ final class SettingsStore {
             ?? .standard
         self.defaults = resolved
         self.settings = Self.load(from: resolved, key: key) ?? Self.firstRunDefaults
+        migrateMenuBarStyleIfNeeded()
+    }
+
+    /// One-time migration: the default menu bar style changed from the bare
+    /// `.nextPrayerCountdown` ("Asr in 1:24") to `.iconNameCountdown`
+    /// ("🌙 Asr in 1:24"). Flip a value still sitting on the *old* default so the
+    /// new default reaches existing installs once; a deliberate later choice
+    /// (including re-selecting the old style) then sticks.
+    private func migrateMenuBarStyleIfNeeded() {
+        let flag = "didMigrateMenuBarStyleIcon.v1"
+        guard !defaults.bool(forKey: flag) else { return }
+        defaults.set(true, forKey: flag)
+        if settings.menuBarStyle == .nextPrayerCountdown {
+            settings.menuBarStyle = .iconNameCountdown   // didSet re-persists
+        }
     }
 
     // MARK: Resolved inputs (consumed by PrayerClock / NotificationService)

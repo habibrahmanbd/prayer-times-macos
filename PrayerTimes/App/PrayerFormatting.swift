@@ -45,16 +45,6 @@ enum PrayerFormatting {
         return date.formatted(fmt)
     }
 
-    /// Compact countdown for the menu bar label: "1:24:30", "24:30", or "0:42".
-    /// Shows seconds only under a minute so the menu bar isn't visually noisy.
-    static func countdownLabel(_ seconds: TimeInterval) -> String {
-        let total = Int(seconds.rounded(.down))
-        let h = total / 3600, m = (total % 3600) / 60, s = total % 60
-        if h > 0 { return String(format: "%d:%02d", h, m) }
-        if m > 0 { return String(format: "%d:%02d", m, s) }
-        return String(format: "0:%02d", s)
-    }
-
     /// Full H:MM:SS countdown for the panel's highlighted next prayer.
     static func countdownLong(_ seconds: TimeInterval) -> String {
         let total = Int(seconds.rounded(.down))

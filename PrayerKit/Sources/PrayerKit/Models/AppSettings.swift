@@ -3,10 +3,10 @@ import Foundation
 /// Menu bar label content (§7.1). Raw values are stable for persistence.
 public enum MenuBarStyle: String, Codable, Sendable, CaseIterable, Hashable {
     case iconOnly                       // 🌙
-    case countdownOnly                  // "1:24"
-    case iconCountdown                  // 🌙 1:24
-    case nextPrayerCountdown            // "Asr 1:24"  (default)
-    case iconNameCountdown              // 🌙 Asr 1:24
+    case countdownOnly                  // "in 1:24"
+    case iconCountdown                  // 🌙 in 1:24
+    case nextPrayerCountdown            // "Asr in 1:24"
+    case iconNameCountdown              // 🌙 Asr in 1:24  (default)
     case nextPrayerClock                // "Asr 16:42"
     case iconNameClock                  // 🌙 Asr 16:42
 
@@ -123,7 +123,7 @@ public struct AppSettings: Codable, Sendable, Equatable {
         manualCoordinates: Coordinates? = nil,
         timeZoneMode: TimeZoneMode = .system,
         autoDetectMethod: Bool = false,
-        menuBarStyle: MenuBarStyle = .nextPrayerCountdown,
+        menuBarStyle: MenuBarStyle = .iconNameCountdown,
         launchAtLogin: Bool = false,
         languageOverride: String? = nil,
         masterNotificationsEnabled: Bool = true,
