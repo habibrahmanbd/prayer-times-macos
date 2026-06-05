@@ -14,6 +14,12 @@ struct MenuBarLabel: View {
 
         HStack(spacing: 4) {
             if style.showsIcon {
+                // Sizing/centering is baked into the asset: the Mosque.imageset
+                // viewBox carries ~15% vertical padding so the glyph fills ~70% of
+                // its square box, centered. The menu bar scales template images to
+                // its own icon height (ignoring SwiftUI `.frame`), so the padding —
+                // not a view modifier — is what keeps the glyph from looming above
+                // the text caps and aligns it with the neighbouring menu-bar icons.
                 Image("Mosque")
                     .renderingMode(.template)
             }
