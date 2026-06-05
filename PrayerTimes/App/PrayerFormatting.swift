@@ -77,6 +77,7 @@ enum PrayerFormatting {
 
     static func highLatitudeRuleName(_ rule: HighLatitudeRule) -> String {
         switch rule {
+        case .automatic: return String(localized: "Automatic (recommended)")
         case .none: return String(localized: "None")
         case .middleOfNight: return String(localized: "Middle of the night")
         case .seventhOfNight: return String(localized: "One-seventh of the night")

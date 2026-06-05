@@ -151,4 +151,32 @@ final class EngineTests: XCTestCase {
         XCTAssertNotNil(adjusted[.isha], "angle-based rule supplies an Isha")
         XCTAssertLessThan(adjusted[.fajr]!, adjusted[.sunrise]!, "Fajr before sunrise")
     }
+
+    /// Kraków (50°N) in June: the sun grazes ~17.4° depression, so MWL's 18° Fajr
+    /// never happens and its 17° Isha collapses to ~solar-midnight under `.none`.
+    /// MWL's shipped `.angleBased` rule must produce a sane pre-dawn Fajr and a
+    /// pre-midnight Isha that agree with reference tables (~2:1x AM / ~10:5x PM).
+    func testKrakowJuneAngleBasedFajrAndIsha() {
+        let tz = TZ.make("Europe/Warsaw")
+        let coords = Coordinates(latitude: 50.0532, longitude: 19.9443)
+        let date = components(2026, 6, 5)
+        let cal = { () -> Calendar in var c = Calendar(identifier: .gregorian); c.timeZone = tz; return c }()
+
+        // MWL ships .angleBased — exactly what SettingsStore keeps under `.automatic`.
+        let params = MWLAdapter().resolve(for: coords)
+        XCTAssertEqual(params.highLatitudeRule, .angleBased, "MWL must recommend angle-based at high latitude")
+        let t = PrayerTimeEngine.calculate(date: date, coordinates: coords, params: params, timeZone: tz)
+
+        let fajr = try! XCTUnwrap(t[.fajr], "angle-based supplies a Fajr")
+        let isha = try! XCTUnwrap(t[.isha], "angle-based supplies an Isha")
+        XCTAssertLessThan(fajr, t[.sunrise]!, "Fajr before sunrise")
+        XCTAssertLessThan(t[.maghrib]!, isha, "Isha after Maghrib")
+
+        // Reference (aladhan MWL): Fajr ~2:13 AM, Isha ~10:57 PM. Allow ±15 min.
+        let fajrMin = cal.component(.hour, from: fajr) * 60 + cal.component(.minute, from: fajr)
+        let ishaMin = cal.component(.hour, from: isha) * 60 + cal.component(.minute, from: isha)
+        XCTAssertEqual(fajrMin, 2 * 60 + 13, accuracy: 15, "Fajr near 2:13 AM")
+        XCTAssertEqual(ishaMin, 22 * 60 + 57, accuracy: 15, "Isha near 10:57 PM")
+        XCTAssertLessThan(isha, t[.maghrib]!.addingTimeInterval(4 * 3600), "Isha well before midnight, not pinned to solar midnight")
+    }
 }

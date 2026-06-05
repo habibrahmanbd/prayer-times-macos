@@ -118,7 +118,7 @@ public struct AppSettings: Codable, Sendable, Equatable {
         methodID: String = "mwl",
         manualParameters: CalculationParameters? = nil,
         hanafiAsr: Bool = false,
-        highLatitudeRule: HighLatitudeRule = .none,
+        highLatitudeRule: HighLatitudeRule = .automatic,
         locationMode: LocationMode = .automatic,
         manualCoordinates: Coordinates? = nil,
         timeZoneMode: TimeZoneMode = .system,

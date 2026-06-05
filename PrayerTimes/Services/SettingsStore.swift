@@ -40,7 +40,24 @@ final class SettingsStore {
             ?? .standard
         self.defaults = resolved
         self.settings = Self.load(from: resolved, key: key) ?? Self.firstRunDefaults
+        migrateHighLatitudeRuleIfNeeded()
         migrateMenuBarStyleIfNeeded()
+    }
+
+    /// One-time migration (v0.3.0 → next): before `.automatic` existed, the
+    /// high-latitude rule defaulted to `.none`, which silently discarded each
+    /// method's own recommendation and left Fajr undefined / Isha pinned to solar
+    /// midnight at high latitudes (e.g. Kraków in June). Existing users carry a
+    /// persisted `.none` that the new `.automatic` default can't reach, so flip a
+    /// legacy `.none` to `.automatic` exactly once. The flag means a user who
+    /// *deliberately* picks `.none` afterwards keeps it.
+    private func migrateHighLatitudeRuleIfNeeded() {
+        let flag = "didMigrateHighLatAutomatic.v1"
+        guard !defaults.bool(forKey: flag) else { return }
+        defaults.set(true, forKey: flag)
+        if settings.highLatitudeRule == .none {
+            settings.highLatitudeRule = .automatic   // didSet re-persists
+        }
     }
 
     /// One-time migration: the default menu bar style changed from the bare
@@ -155,11 +172,17 @@ final class SettingsStore {
         resolvedAdapter().displayName
     }
 
-    /// Final calculation parameters: the method's parameters with the user's
-    /// high-latitude rule applied on top (the Calculation tab owns that choice).
+    /// Final calculation parameters: the method's parameters, with the user's
+    /// explicit high-latitude rule applied on top. `.automatic` (the default)
+    /// keeps the method's own recommended rule — e.g. MWL ships `.angleBased`,
+    /// which is what supplies a sane Fajr/Isha in northern Europe where the sun
+    /// never reaches the twilight depression angle in summer. Only a deliberate
+    /// non-automatic choice overrides that.
     func resolvedParameters() -> CalculationParameters {
         var p = resolvedAdapter().resolve(for: resolvedCoordinates)
-        p.highLatitudeRule = settings.highLatitudeRule
+        if settings.highLatitudeRule != .automatic {
+            p.highLatitudeRule = settings.highLatitudeRule
+        }
         return p
     }
 

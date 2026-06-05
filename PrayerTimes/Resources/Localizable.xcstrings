@@ -287,6 +287,28 @@
         }
       }
     },
+    "Automatic (recommended)": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تلقائي (موصى به)"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "স্বয়ংক্রিয় (প্রস্তাবিত)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Otomatik (önerilen)"
+          }
+        }
+      }
+    },
     "Automatic updates are enabled in a later build.": {
       "localizations": {
         "ar": {

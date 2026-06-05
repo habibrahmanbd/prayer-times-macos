@@ -10,7 +10,7 @@ extension HighLatitudeRule {
     /// Fraction of the night allotted to the twilight phase for `angle`.
     func nightPortion(angle: Double) -> Double {
         switch self {
-        case .none: return 0
+        case .automatic, .none: return 0
         case .middleOfNight: return 1.0 / 2.0
         case .seventhOfNight: return 1.0 / 7.0
         case .angleBased: return angle / 60.0
@@ -22,7 +22,7 @@ extension HighLatitudeRule {
     /// that precede `base` (Fajr). A `NaN` input (angle never reached) is forced
     /// to the clamp boundary.
     func clamp(_ time: Double, base: Double, angle: Double, night: Double, before: Bool) -> Double {
-        guard self != .none else { return time }
+        guard self != .none, self != .automatic else { return time }
         let portion = nightPortion(angle: angle) * night
         let diff = before ? base - time : time - base
         if time.isNaN || diff > portion {
