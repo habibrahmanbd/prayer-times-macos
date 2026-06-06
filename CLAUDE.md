@@ -65,6 +65,12 @@ the menu bar, not a window or Dock icon.
 - District reference coordinates for the gate were calibrated to the tables
   (e.g. Başakşehir latitude 41.06). `DiyanetCalibration` is the dev-only
   re-tuning harness (skips when `data/` is absent).
+- **The engine rounds each instant to the nearest minute** (not truncates).
+  Published tables are minute-granular and round; truncating displayed every time
+  up to ~1 min early (e.g. JAKIM Dhuhr 13:14:53 shown as 1:14 instead of 1:15).
+  Rounding keeps the clock, the notification fire time, and the countdown on one
+  minute boundary. Offsets are whole minutes, so spacing between times is
+  preserved.
 - `MoonsightingCommitteeAdapter` is an approximation — its seasonal twilight
   correction needs the date, which the location-only `resolve(for:)` contract
   can't pass. A known follow-up.

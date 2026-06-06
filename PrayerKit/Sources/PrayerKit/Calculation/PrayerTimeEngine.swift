@@ -77,7 +77,14 @@ public enum PrayerTimeEngine {
         func instant(_ hours: Double, _ prayer: Prayer) -> Date? {
             let v = tuned(hours, prayer)
             guard v.isFinite else { return nil }
-            return base.addingTimeInterval(v * 3600)
+            // Round to the nearest whole minute. Published prayer tables (Diyanet,
+            // JAKIM e-Solat, …) are minute-granular and round rather than truncate;
+            // returning the rounded instant keeps the displayed clock, the
+            // notification fire time, and the countdown all on the same minute
+            // boundary. Offsets are whole minutes, so this never changes the
+            // spacing between two computed times.
+            let minutes = (v * 60).rounded()
+            return base.addingTimeInterval(minutes * 60)
         }
 
         var times: [Prayer: Date] = [:]
