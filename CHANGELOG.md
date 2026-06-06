@@ -4,6 +4,15 @@ All notable changes to Prayer Times are documented here. This project adheres to
 [Semantic Versioning](https://semver.org) and the
 [Keep a Changelog](https://keepachangelog.com) format.
 
+## [0.4.0] - 2026-06-06
+
+### Added
+- **JAKIM (Malaysia) calculation method.** Calibrated against JAKIM's official e-Solat tables so prayer times match what Malaysian users see in the official service — not the generic "Fajr 20°/Isha 18°" preset other apps mislabel as JAKIM, which runs Fajr about 11 minutes early. Auto-detect now selects JAKIM in Malaysia.
+- **Kemenag (Indonesia) calculation method.** Calibrated against the official Kementerian Agama (Kemenag) tables, including the standard Indonesian *ihtiyati* safety minutes, so times match Kemenag's published schedule. Auto-detect now selects Kemenag in Indonesia.
+
+### Fixed
+- **Prayer times displayed up to a minute early.** Times were truncated to the minute instead of rounded, so a calculated 1:14:53 showed as "1:14" rather than "1:15". They are now rounded to the nearest minute — matching official prayer tables — across every calculation method, and the clock, notifications, and countdown all stay on the same minute.
+
 ## [0.3.1] - 2026-06-05
 
 ### Fixed
