@@ -147,9 +147,9 @@ jobs:
           tag_name: ${{ inputs.tag }}
           name: "Prayer Times ${{ inputs.tag }}"
           body_path: ${{ steps.notes.outputs.path }}
-          files: |
-            ${{ steps.pkg.outputs.zip }}
-            docs/appcast.xml
+          # Only the app zip is a release asset; the appcast is served from GitHub
+          # Pages (docs/appcast.xml on main), not attached to the release.
+          files: ${{ steps.pkg.outputs.zip }}
 
       # The Homebrew cask lives in the tap repo (tareq1988/homebrew-tap) and is the
       # single source of truth. Cross-repo push needs a PAT; for now print the
