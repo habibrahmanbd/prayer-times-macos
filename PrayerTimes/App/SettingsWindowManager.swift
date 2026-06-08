@@ -17,23 +17,25 @@ final class SettingsWindowManager: NSObject, NSWindowDelegate, NSToolbarDelegate
     private let audio: AudioService
     private let updates: UpdateService
     private let notifications: NotificationService
+    private let focus: FocusModeController
     private var window: NSWindow?
     private let log = Logger(subsystem: "co.tareq.prayertimes", category: "settings")
 
     /// Fixed pane size so the window doesn't jump between tabs; tall panes scroll.
     private static let paneSize = NSSize(width: 480, height: 520)
 
-    init(settings: SettingsStore, audio: AudioService, updates: UpdateService, notifications: NotificationService) {
+    init(settings: SettingsStore, audio: AudioService, updates: UpdateService, notifications: NotificationService, focus: FocusModeController) {
         self.settings = settings
         self.audio = audio
         self.updates = updates
         self.notifications = notifications
+        self.focus = focus
     }
 
     // MARK: Tabs
 
     private enum Tab: String, CaseIterable {
-        case general, location, calculation, notifications
+        case general, location, calculation, notifications, focus
 
         var title: String {
             switch self {
@@ -41,6 +43,7 @@ final class SettingsWindowManager: NSObject, NSWindowDelegate, NSToolbarDelegate
             case .location: return String(localized: "Location & Time")
             case .calculation: return String(localized: "Calculation")
             case .notifications: return String(localized: "Notifications")
+            case .focus: return String(localized: "Focus Mode")
             }
         }
         var symbol: String {
@@ -49,6 +52,7 @@ final class SettingsWindowManager: NSObject, NSWindowDelegate, NSToolbarDelegate
             case .location: return "location"
             case .calculation: return "moon.circle"
             case .notifications: return "bell"
+            case .focus: return "eye.slash"
             }
         }
         var id: NSToolbarItem.Identifier { .init(rawValue) }
@@ -124,6 +128,7 @@ final class SettingsWindowManager: NSObject, NSWindowDelegate, NSToolbarDelegate
         case .location: content = AnyView(LocationTimeTab(settings: settings))
         case .calculation: content = AnyView(CalculationTab(settings: settings))
         case .notifications: content = AnyView(NotificationsTab(settings: settings, audio: audio, notifications: notifications))
+        case .focus: content = AnyView(FocusModeTab(settings: settings, focus: focus))
         }
         return AnyView(content.frame(width: Self.paneSize.width, height: Self.paneSize.height))
     }

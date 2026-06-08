@@ -45,6 +45,14 @@ public enum MenuBarCountdownMode: String, Codable, Sendable, CaseIterable, Hasha
     case currentWaqt  // time left in the current prayer's window — "Asr 40m left"
 }
 
+/// Strength of the Focus Mode backdrop blur over the desktop. Maps to a visual
+/// material/opacity in the app layer.
+public enum FocusBlurIntensity: String, Codable, Sendable, CaseIterable, Hashable {
+    case low
+    case medium
+    case high
+}
+
 /// How the observer location is determined (§7.6).
 public enum LocationMode: String, Codable, Sendable, CaseIterable, Hashable {
     case automatic   // one-shot CoreLocation
@@ -122,6 +130,13 @@ public struct AppSettings: Codable, Sendable, Equatable {
     /// can match the user's country, whose moon-sighting may differ from the
     /// calculated calendar (e.g. Bangladesh vs Saudi Arabia). Typically −2…+2.
     public var hijriDayAdjustment: Int
+
+    // Focus Mode (§ issue #2): cover the screen at prayer time as a discipline aid.
+    public var focusModeEnabled: Bool
+    public var focusDurationMinutes: Int
+    public var focusBlurIntensity: FocusBlurIntensity
+    public var focusEmergencyExitEnabled: Bool
+
     public var launchAtLogin: Bool
     public var languageOverride: String?            // BCP-47, nil = follow system
     public var masterNotificationsEnabled: Bool     // global on/off (spec §7.6)
@@ -141,6 +156,10 @@ public struct AppSettings: Codable, Sendable, Equatable {
         menuBarCountdownMode: MenuBarCountdownMode = .nextPrayer,
         showIshraqTime: Bool = false,
         hijriDayAdjustment: Int = 0,
+        focusModeEnabled: Bool = false,
+        focusDurationMinutes: Int = 15,
+        focusBlurIntensity: FocusBlurIntensity = .medium,
+        focusEmergencyExitEnabled: Bool = true,
         launchAtLogin: Bool = false,
         languageOverride: String? = nil,
         masterNotificationsEnabled: Bool = true,
@@ -159,6 +178,10 @@ public struct AppSettings: Codable, Sendable, Equatable {
         self.menuBarCountdownMode = menuBarCountdownMode
         self.showIshraqTime = showIshraqTime
         self.hijriDayAdjustment = hijriDayAdjustment
+        self.focusModeEnabled = focusModeEnabled
+        self.focusDurationMinutes = focusDurationMinutes
+        self.focusBlurIntensity = focusBlurIntensity
+        self.focusEmergencyExitEnabled = focusEmergencyExitEnabled
         self.launchAtLogin = launchAtLogin
         self.languageOverride = languageOverride
         self.masterNotificationsEnabled = masterNotificationsEnabled
@@ -188,6 +211,10 @@ public struct AppSettings: Codable, Sendable, Equatable {
         menuBarCountdownMode = try get(.menuBarCountdownMode, d.menuBarCountdownMode)
         showIshraqTime = try get(.showIshraqTime, d.showIshraqTime)
         hijriDayAdjustment = try get(.hijriDayAdjustment, d.hijriDayAdjustment)
+        focusModeEnabled = try get(.focusModeEnabled, d.focusModeEnabled)
+        focusDurationMinutes = try get(.focusDurationMinutes, d.focusDurationMinutes)
+        focusBlurIntensity = try get(.focusBlurIntensity, d.focusBlurIntensity)
+        focusEmergencyExitEnabled = try get(.focusEmergencyExitEnabled, d.focusEmergencyExitEnabled)
         launchAtLogin = try get(.launchAtLogin, d.launchAtLogin)
         languageOverride = try c.decodeIfPresent(String.self, forKey: .languageOverride)
         masterNotificationsEnabled = try get(.masterNotificationsEnabled, d.masterNotificationsEnabled)

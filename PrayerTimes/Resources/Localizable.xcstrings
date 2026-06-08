@@ -178,6 +178,72 @@
         }
       }
     },
+    "Allow ⌘ Esc to exit early": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "السماح بالخروج مبكرًا عبر ⌘ Esc"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘ Esc দিয়ে আগেই বের হওয়ার অনুমতি দিন"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "⌘ Esc ile erken çıkışa izin ver"
+          }
+        }
+      }
+    },
+    "And establish prayer at the two ends of the day. Indeed, good deeds drive away evil deeds.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وَأَقِمِ الصَّلَاةَ طَرَفَيِ النَّهَارِ، إِنَّ الْحَسَنَاتِ يُذْهِبْنَ السَّيِّئَاتِ."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "দিনের দুই প্রান্তে নামাজ কায়েম করো; নিশ্চয়ই সৎকর্ম মন্দ কাজকে মুছে দেয়।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gündüzün iki ucunda namaz kıl; şüphesiz iyilikler kötülükleri giderir."
+          }
+        }
+      }
+    },
+    "And seek help through patience and prayer.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وَاسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "আর ধৈর্য ও নামাজের মাধ্যমে সাহায্য প্রার্থনা করো।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sabır ve namazla yardım isteyin."
+          }
+        }
+      }
+    },
     "Angle-based": {
       "localizations": {
         "ar": {
@@ -420,6 +486,28 @@
         }
       }
     },
+    "Blur intensity": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شدّة التمويه"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ব্লারের মাত্রা"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bulanıklık yoğunluğu"
+          }
+        }
+      }
+    },
     "Calculation": {
       "localizations": {
         "ar": {
@@ -640,6 +728,28 @@
         }
       }
     },
+    "Covers the entire screen during prayer time": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يغطّي الشاشة بالكامل أثناء وقت الصلاة"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "নামাজের সময় পুরো স্ক্রিন ঢেকে দেয়"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Namaz vaktinde tüm ekranı kaplar"
+          }
+        }
+      }
+    },
     "Day adjustment": {
       "localizations": {
         "ar": {
@@ -794,6 +904,50 @@
         }
       }
     },
+    "Emergency exit": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خروج طارئ"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "জরুরি প্রস্থান"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acil çıkış"
+          }
+        }
+      }
+    },
+    "Enable Focus Mode": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تفعيل وضع التركيز"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ফোকাস মোড চালু করুন"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odak Modunu Etkinleştir"
+          }
+        }
+      }
+    },
     "Enable notifications": {
       "localizations": {
         "ar": {
@@ -812,6 +966,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bildirimleri etkinleştir"
+          }
+        }
+      }
+    },
+    "Establish prayer for My remembrance.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وَأَقِمِ الصَّلَاةَ لِذِكْرِي."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "আমার স্মরণে নামাজ কায়েম করো।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Beni anmak için namaz kıl."
           }
         }
       }
@@ -860,6 +1036,50 @@
         }
       }
     },
+    "Focus Mode": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وضع التركيز"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ফোকাস মোড"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odak Modu"
+          }
+        }
+      }
+    },
+    "Focus Mode covers your whole screen at each obligatory prayer. It's a discipline aid, not a lock — Force Quit always works, and it won't engage while a fullscreen app (a call or presentation) is frontmost.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يغطّي وضع التركيز شاشتك بالكامل عند كل صلاة مفروضة. إنه وسيلة للمساعدة على الانضباط وليس قفلًا — فالإنهاء القسري (Force Quit) يعمل دائمًا، ولن يُفعَّل أثناء وجود تطبيق بملء الشاشة (مكالمة أو عرض تقديمي) في المقدمة."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ফোকাস মোড প্রতিটি ফরজ নামাজে আপনার পুরো স্ক্রিন ঢেকে দেয়। এটি একটি শৃঙ্খলা-সহায়ক, কোনো লক নয় — Force Quit সবসময় কাজ করে, এবং কোনো ফুলস্ক্রিন অ্যাপ (কল বা প্রেজেন্টেশন) সামনে থাকলে এটি চালু হবে না।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odak Modu her farz namazda tüm ekranınızı kaplar. Bu bir kilit değil, bir disiplin yardımcısıdır — Force Quit her zaman çalışır ve tam ekran bir uygulama (görüşme veya sunum) öndeyken devreye girmez."
+          }
+        }
+      }
+    },
     "Follow system": {
       "localizations": {
         "ar": {
@@ -904,6 +1124,28 @@
         }
       }
     },
+    "Guard strictly the prayers, especially the middle prayer, and stand before Allah devoutly obedient.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حَافِظُوا عَلَى الصَّلَوَاتِ وَالصَّلَاةِ الْوُسْطَىٰ وَقُومُوا لِلَّهِ قَانِتِينَ."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "তোমরা নামাজসমূহের প্রতি, বিশেষত মধ্যবর্তী নামাজের প্রতি যত্নবান হও এবং আল্লাহর সামনে বিনীতভাবে দাঁড়াও।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Namazlara ve orta namaza devam edin; Allah'ın huzurunda gönülden boyun eğerek durun."
+          }
+        }
+      }
+    },
     "Hanafi": {
       "localizations": {
         "ar": {
@@ -944,6 +1186,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hanefi (2×)"
+          }
+        }
+      }
+    },
+    "High": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عالية"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "বেশি"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yüksek"
           }
         }
       }
@@ -1076,6 +1340,50 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yalnızca simge"
+          }
+        }
+      }
+    },
+    "Indeed, prayer has been decreed upon the believers a decree of specified times.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "নিশ্চয়ই নামাজ মুমিনদের উপর নির্দিষ্ট সময়ে ফরজ করা হয়েছে।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şüphesiz namaz, müminlere belirli vakitlerde farz kılınmıştır."
+          }
+        }
+      }
+    },
+    "Indeed, prayer restrains from immorality and wrongdoing.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنْكَرِ."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "নিশ্চয়ই নামাজ অশ্লীলতা ও মন্দ কাজ থেকে বিরত রাখে।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Şüphesiz namaz, hayâsızlıktan ve kötülükten alıkoyar."
           }
         }
       }
@@ -1278,6 +1586,28 @@
         }
       }
     },
+    "It's time for %@": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حان وقت %@"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ এর সময় হয়েছে"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ vakti geldi"
+          }
+        }
+      }
+    },
     "It's time for %@ (%@).": {
       "localizations": {
         "ar": {
@@ -1476,6 +1806,28 @@
         }
       }
     },
+    "Low": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "منخفضة"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "কম"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Düşük"
+          }
+        }
+      }
+    },
     "Maghrib": {
       "localizations": {
         "ar": {
@@ -1560,6 +1912,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ana saat dilimi"
+          }
+        }
+      }
+    },
+    "Medium": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متوسطة"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "মাঝারি"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Orta"
           }
         }
       }
@@ -1938,6 +2312,50 @@
         }
       }
     },
+    "Prayer duration": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مدة الصلاة"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "নামাজের সময়কাল"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Namaz süresi"
+          }
+        }
+      }
+    },
+    "Prayer is light.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصَّلَاةُ نُورٌ."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "নামাজ হলো নূর।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Namaz nurdur."
+          }
+        }
+      }
+    },
     "Prayer-time notification": {
       "localizations": {
         "ar": {
@@ -1956,6 +2374,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Namaz vakti bildirimi"
+          }
+        }
+      }
+    },
+    "Press ⌘ Esc to exit": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اضغط ⌘ Esc للخروج"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "প্রস্থান করতে ⌘ Esc চাপুন"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çıkmak için ⌘ Esc'e basın"
           }
         }
       }
@@ -2246,6 +2686,28 @@
         }
       }
     },
+    "Successful indeed are the believers — those who are humble in their prayer.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "قَدْ أَفْلَحَ الْمُؤْمِنُونَ، الَّذِينَ هُمْ فِي صَلَاتِهِمْ خَاشِعُونَ."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "নিশ্চয়ই সফল হয়েছে মুমিনগণ, যারা তাদের নামাজে বিনয়াবনত।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Müminler gerçekten kurtuluşa ermiştir; onlar ki namazlarında huşû içindedir."
+          }
+        }
+      }
+    },
     "Sunrise": {
       "localizations": {
         "ar": {
@@ -2312,6 +2774,72 @@
         }
       }
     },
+    "The closest a servant is to his Lord is while prostrating.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أَقْرَبُ مَا يَكُونُ الْعَبْدُ مِنْ رَبِّهِ وَهُوَ سَاجِدٌ."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "বান্দা তার রবের সবচেয়ে নিকটবর্তী হয় সিজদারত অবস্থায়।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kulun Rabbine en yakın olduğu an secde hâlidir."
+          }
+        }
+      }
+    },
+    "The coolness of my eyes is in prayer.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "وَجُعِلَتْ قُرَّةُ عَيْنِي فِي الصَّلَاةِ."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "আমার চোখের শীতলতা রাখা হয়েছে নামাজে।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gözümün nuru namazda kılındı."
+          }
+        }
+      }
+    },
+    "The first deed for which a servant will be held accountable on the Day of Judgment is the prayer.": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أَوَّلُ مَا يُحَاسَبُ بِهِ الْعَبْدُ يَوْمَ الْقِيَامَةِ الصَّلَاةُ."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "কিয়ামতের দিন বান্দার সর্বপ্রথম যে আমলের হিসাব নেওয়া হবে তা হলো নামাজ।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kıyamet günü kulun hesaba çekileceği ilk amel namazdır."
+          }
+        }
+      }
+    },
     "Time left in current prayer": {
       "localizations": {
         "ar": {
@@ -2374,6 +2902,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bugün"
+          }
+        }
+      }
+    },
+    "Try it for 10 seconds": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "جرّبه لمدة 10 ثوانٍ"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "১০ সেকেন্ডের জন্য চেষ্টা করুন"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 saniye deneyin"
           }
         }
       }
@@ -2488,6 +3038,50 @@
         }
       }
     },
+    "minute": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دقيقة"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "মিনিট"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dakika"
+          }
+        }
+      }
+    },
+    "minutes": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دقائق"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "মিনিট"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "dakika"
+          }
+        }
+      }
+    },
     "· Iqamah %@": {
       "localizations": {
         "ar": {
@@ -2506,6 +3100,226 @@
           "stringUnit": {
             "state": "translated",
             "value": "· Kamet %@"
+          }
+        }
+      }
+    },
+    "— Prophet Muhammad ﷺ (Muslim)": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— النبي محمد ﷺ (مسلم)"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— নবী মুহাম্মদ ﷺ (মুসলিম)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Hz. Muhammed ﷺ (Müslim)"
+          }
+        }
+      }
+    },
+    "— Prophet Muhammad ﷺ (Tirmidhī)": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— النبي محمد ﷺ (الترمذي)"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— নবী মুহাম্মদ ﷺ (তিরমিযি)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Hz. Muhammed ﷺ (Tirmizî)"
+          }
+        }
+      }
+    },
+    "— Prophet Muhammad ﷺ (an-Nasāʾī)": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— النبي محمد ﷺ (النسائي)"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— নবী মুহাম্মদ ﷺ (নাসায়ী)"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Hz. Muhammed ﷺ (Nesâî)"
+          }
+        }
+      }
+    },
+    "— Qur'an · Al-Baqarah 2:238": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— القرآن · البقرة ٢:٢٣٨"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— কুরআন · আল-বাকারা ২:২৩৮"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Kur'an · Bakara 2:238"
+          }
+        }
+      }
+    },
+    "— Qur'an · Al-Baqarah 2:45": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— القرآن · البقرة ٢:٤٥"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— কুরআন · আল-বাকারা ২:৪৫"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Kur'an · Bakara 2:45"
+          }
+        }
+      }
+    },
+    "— Qur'an · Al-Muʾminūn 23:1–2": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— القرآن · المؤمنون ٢٣:١–٢"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— কুরআন · আল-মুমিনূন ২৩:১–২"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Kur'an · Mü'minûn 23:1–2"
+          }
+        }
+      }
+    },
+    "— Qur'an · Al-ʿAnkabūt 29:45": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— القرآن · العنكبوت ٢٩:٤٥"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— কুরআন · আল-আনকাবূত ২৯:৪৫"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Kur'an · Ankebût 29:45"
+          }
+        }
+      }
+    },
+    "— Qur'an · An-Nisā 4:103": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— القرآن · النساء ٤:١٠٣"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— কুরআন · আন-নিসা ৪:১০৩"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Kur'an · Nisâ 4:103"
+          }
+        }
+      }
+    },
+    "— Qur'an · Hūd 11:114": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— القرآن · هود ١١:١١٤"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— কুরআন · হূদ ১১:১১৪"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Kur'an · Hûd 11:114"
+          }
+        }
+      }
+    },
+    "— Qur'an · Ṭā Hā 20:14": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— القرآن · طه ٢٠:١٤"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— কুরআন · ত্বা-হা ২০:১৪"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "— Kur'an · Tâhâ 20:14"
           }
         }
       }

@@ -15,6 +15,7 @@ final class PrayerClock {
     private let settings: SettingsStore
     private let notifications: NotificationService
     private let audio: AudioService
+    private let focus: FocusModeController
 
     // MARK: Live state
     private(set) var today: PrayerTimes
@@ -30,10 +31,11 @@ final class PrayerClock {
 
     private var tickTask: Task<Void, Never>?
 
-    init(settings: SettingsStore, notifications: NotificationService, audio: AudioService) {
+    init(settings: SettingsStore, notifications: NotificationService, audio: AudioService, focus: FocusModeController) {
         self.settings = settings
         self.notifications = notifications
         self.audio = audio
+        self.focus = focus
         let start = Date()
         now = start
         previousNow = start
@@ -132,7 +134,19 @@ final class PrayerClock {
             scheduleNotifications()
         }
         fireAdhanIfCrossed(from: previousNow, to: now)
+        beginFocusIfCrossed(from: previousNow, to: now)
         previousNow = now
+    }
+
+    /// Engage Focus Mode for an obligatory prayer whose instant falls in
+    /// `(start, end]`, when enabled. Reuses the Adhan catch-up guard so a
+    /// sleep/wake gap never slams a stale full-screen block onto the desktop.
+    private func beginFocusIfCrossed(from start: Date, to end: Date) {
+        guard settings.settings.focusModeEnabled else { return }
+        guard end.timeIntervalSince(start) <= Self.maxAdhanCatchUp else { return }
+        for (prayer, time) in today.times where prayer.isObligatory && time > start && time <= end {
+            focus.begin(prayer: prayer, settings: settings.settings)
+        }
     }
 
     /// Reschedule the rolling notification window from current settings/times.

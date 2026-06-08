@@ -19,6 +19,14 @@ enum PrayerFormatting {
         }
     }
 
+    static func blurIntensityName(_ intensity: FocusBlurIntensity) -> String {
+        switch intensity {
+        case .low: return String(localized: "Low")
+        case .medium: return String(localized: "Medium")
+        case .high: return String(localized: "High")
+        }
+    }
+
     /// SF Symbol representing each prayer's time of day.
     static func icon(_ prayer: Prayer) -> String {
         switch prayer {
