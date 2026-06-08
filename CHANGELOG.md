@@ -4,6 +4,13 @@ All notable changes to Prayer Times are documented here. This project adheres to
 [Semantic Versioning](https://semver.org) and the
 [Keep a Changelog](https://keepachangelog.com) format.
 
+## [0.5.0] - 2026-06-08
+
+### Added
+- **Today's Hijri (Islamic) date in the panel.** Shown beneath the Gregorian date, using the calculated Umm al-Qura calendar. Because the Islamic date can differ by country — Saudi Arabia and Bangladesh often observe Eid on different days — a **−2…+2 day adjustment** (Location & Time settings) lets you align it to your country's local moon-sighting. Localized month names and era in Arabic, Bengali, and Turkish.
+- **"Time left in the current prayer" menu bar countdown.** A new option lets the menu bar count down to the *end* of the current prayer's window (e.g. "Asr 40m left") instead of the time until the next prayer — so you can see at a glance how long you still have to pray. Switch between the two in General settings.
+- **Optional Ishraq time in the panel.** Enable "Show Ishraq time" to display when the voluntary Ishraq/Duha prayer becomes valid, listed right after Sunrise.
+
 ## [0.4.0] - 2026-06-06
 
 ### Added
