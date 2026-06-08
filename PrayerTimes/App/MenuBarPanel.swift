@@ -37,6 +37,10 @@ struct MenuBarPanel: View {
                 .foregroundStyle(.secondary)
                 .tracking(0.5)
 
+            Text(PrayerFormatting.hijriDate(clock.now, in: clock.timeZone, adjustment: clock.hijriDayAdjustment))
+                .font(.caption2)
+                .foregroundStyle(.tertiary)
+
             if let next = clock.nextEvent {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     Image(systemName: PrayerFormatting.icon(next.prayer))

@@ -85,6 +85,16 @@ struct LocationTimeTab: View {
                 }
             }
 
+            Section("Hijri date") {
+                Stepper(value: $settings.settings.hijriDayAdjustment, in: -2...2) {
+                    LabeledContent("Day adjustment", value: hijriAdjustmentLabel)
+                }
+                LabeledContent("Today", value: hijriPreview)
+                Text("Based on the calculated Umm al-Qura calendar. Adjust if your country's date differs (it depends on local moon-sighting).")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+
             Section("Resolved") {
                 LabeledContent("Coordinates",
                     value: String(format: "%.4f, %.4f", settings.resolvedCoordinates.latitude, settings.resolvedCoordinates.longitude))
@@ -92,6 +102,19 @@ struct LocationTimeTab: View {
             }
         }
         .formStyle(.grouped)
+    }
+
+    /// Signed day-offset label, e.g. "0", "+1", "−2" (true minus sign U+2212).
+    private var hijriAdjustmentLabel: String {
+        let adj = settings.settings.hijriDayAdjustment
+        if adj == 0 { return "0" }
+        return adj > 0 ? "+\(adj)" : "−\(abs(adj))"
+    }
+
+    /// Live preview of today's adjusted Hijri date in the resolved timezone.
+    private var hijriPreview: String {
+        PrayerFormatting.hijriDate(Date(), in: settings.resolvedTimeZone,
+                                   adjustment: settings.settings.hijriDayAdjustment)
     }
 
     // MARK: Bindings

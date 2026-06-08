@@ -87,6 +87,9 @@ final class PrayerClock {
     /// Whether the user enabled the optional Ishraq line in the panel.
     var showsIshraqTime: Bool { settings.settings.showIshraqTime }
 
+    /// Whole-day correction applied to the displayed Hijri date (regional moon-sighting).
+    var hijriDayAdjustment: Int { settings.settings.hijriDayAdjustment }
+
     /// Today's six times in chronological order.
     var orderedToday: [(prayer: Prayer, time: Date)] { today.ordered }
 

@@ -118,6 +118,10 @@ public struct AppSettings: Codable, Sendable, Equatable {
     public var menuBarStyle: MenuBarStyle
     public var menuBarCountdownMode: MenuBarCountdownMode
     public var showIshraqTime: Bool
+    /// Whole-day correction applied to the displayed Umm al-Qura Hijri date so it
+    /// can match the user's country, whose moon-sighting may differ from the
+    /// calculated calendar (e.g. Bangladesh vs Saudi Arabia). Typically −2…+2.
+    public var hijriDayAdjustment: Int
     public var launchAtLogin: Bool
     public var languageOverride: String?            // BCP-47, nil = follow system
     public var masterNotificationsEnabled: Bool     // global on/off (spec §7.6)
@@ -136,6 +140,7 @@ public struct AppSettings: Codable, Sendable, Equatable {
         menuBarStyle: MenuBarStyle = .iconNameCountdown,
         menuBarCountdownMode: MenuBarCountdownMode = .nextPrayer,
         showIshraqTime: Bool = false,
+        hijriDayAdjustment: Int = 0,
         launchAtLogin: Bool = false,
         languageOverride: String? = nil,
         masterNotificationsEnabled: Bool = true,
@@ -153,6 +158,7 @@ public struct AppSettings: Codable, Sendable, Equatable {
         self.menuBarStyle = menuBarStyle
         self.menuBarCountdownMode = menuBarCountdownMode
         self.showIshraqTime = showIshraqTime
+        self.hijriDayAdjustment = hijriDayAdjustment
         self.launchAtLogin = launchAtLogin
         self.languageOverride = languageOverride
         self.masterNotificationsEnabled = masterNotificationsEnabled
@@ -181,6 +187,7 @@ public struct AppSettings: Codable, Sendable, Equatable {
         menuBarStyle = try get(.menuBarStyle, d.menuBarStyle)
         menuBarCountdownMode = try get(.menuBarCountdownMode, d.menuBarCountdownMode)
         showIshraqTime = try get(.showIshraqTime, d.showIshraqTime)
+        hijriDayAdjustment = try get(.hijriDayAdjustment, d.hijriDayAdjustment)
         launchAtLogin = try get(.launchAtLogin, d.launchAtLogin)
         languageOverride = try c.decodeIfPresent(String.self, forKey: .languageOverride)
         masterNotificationsEnabled = try get(.masterNotificationsEnabled, d.masterNotificationsEnabled)

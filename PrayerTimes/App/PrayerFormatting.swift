@@ -45,6 +45,46 @@ enum PrayerFormatting {
         return date.formatted(fmt)
     }
 
+    /// Localized Hijri date (e.g. "22 Dhuʻl-Hijjah 1447 AH") from the Umm al-Qura
+    /// calendar, with a whole-day `adjustment` applied so the user can align it to
+    /// their country's moon-sighting. Month names follow the current locale.
+    ///
+    /// Composed from components rather than a `Date.FormatStyle` so the era is a
+    /// term we control: Foundation force-appends an era for Islamic calendars and
+    /// mislocalizes it in some languages (e.g. Bengali renders "AH" as "যুগ").
+    static func hijriDate(_ date: Date, in timeZone: TimeZone, adjustment: Int) -> String {
+        var gregorian = Calendar(identifier: .gregorian)
+        gregorian.timeZone = timeZone
+        let adjusted = gregorian.date(byAdding: .day, value: adjustment, to: date) ?? date
+
+        var hijri = Calendar(identifier: .islamicUmmAlQura)
+        hijri.timeZone = timeZone
+        let parts = hijri.dateComponents([.day, .month, .year], from: adjusted)
+        guard let day = parts.day, let month = parts.month, let year = parts.year else { return "" }
+
+        let monthName = hijriMonthFormatter.monthSymbols[month - 1]
+        let dayString = plainNumberFormatter.string(from: day as NSNumber) ?? String(day)
+        let yearString = plainNumberFormatter.string(from: year as NSNumber) ?? String(year)
+
+        let era = String(localized: "AH", comment: "Hijri era suffix shown after the year, e.g. '22 Sha'ban 1447 AH'")
+        return "\(dayString) \(monthName) \(yearString) \(era)"
+    }
+
+    /// Localized Hijri month names (calendar + current locale fixed; timezone is
+    /// irrelevant to `monthSymbols`). Cached to avoid re-allocating per render.
+    private static let hijriMonthFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.calendar = Calendar(identifier: .islamicUmmAlQura)
+        return f
+    }()
+
+    /// Plain integer formatting (no grouping separators) for the day and year.
+    private static let plainNumberFormatter: NumberFormatter = {
+        let f = NumberFormatter()
+        f.usesGroupingSeparator = false
+        return f
+    }()
+
     /// Full H:MM:SS countdown for the panel's highlighted next prayer.
     static func countdownLong(_ seconds: TimeInterval) -> String {
         let total = Int(seconds.rounded(.down))

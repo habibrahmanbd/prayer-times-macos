@@ -111,6 +111,29 @@
         }
       }
     },
+    "AH": {
+      "comment": "Hijri era suffix shown after the year, e.g. '22 Sha'ban 1447 AH'",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "هـ"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "হিজরী"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hicri"
+          }
+        }
+      }
+    },
     "Adhan (Madinah)": {
       "localizations": {
         "ar": {
@@ -375,6 +398,28 @@
         }
       }
     },
+    "Based on the calculated Umm al-Qura calendar. Adjust if your country's date differs (it depends on local moon-sighting).": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بناءً على تقويم أم القرى المحسوب. عدِّله إذا كان تاريخ بلدك مختلفًا (فهو يعتمد على رؤية الهلال محليًا)."
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "গণনাকৃত উম্মুল কুরা ক্যালেন্ডারের উপর ভিত্তি করে। আপনার দেশের তারিখ ভিন্ন হলে সমন্বয় করুন (এটি স্থানীয় চাঁদ দেখার উপর নির্ভর করে)।"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hesaplanmış Ümmü'l-Kura takvimine dayanır. Ülkenizin tarihi farklıysa ayarlayın (yerel hilal gözlemine bağlıdır)."
+          }
+        }
+      }
+    },
     "Calculation": {
       "localizations": {
         "ar": {
@@ -591,6 +636,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Geri sayım"
+          }
+        }
+      }
+    },
+    "Day adjustment": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعديل اليوم"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "দিন সমন্বয়"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gün düzeltmesi"
           }
         }
       }
@@ -899,6 +966,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yüksek enlem kuralı"
+          }
+        }
+      }
+    },
+    "Hijri date": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "التاريخ الهجري"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "হিজরী তারিখ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hicri tarih"
           }
         }
       }
@@ -2263,6 +2352,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Saat dilimi"
+          }
+        }
+      }
+    },
+    "Today": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اليوم"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "আজ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bugün"
           }
         }
       }
