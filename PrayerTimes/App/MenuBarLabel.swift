@@ -40,20 +40,36 @@ struct MenuBarLabel: View {
     private func textPart(style: MenuBarStyle, next: (prayer: Prayer, time: Date)?) -> String? {
         guard let next else { return nil }
 
-        let name = style.showsName ? PrayerFormatting.name(next.prayer) : nil
-
         switch style.value {
         case .none:
-            return name?.nilIfEmpty
+            return style.showsName ? PrayerFormatting.name(next.prayer).nilIfEmpty : nil
+
         case .countdown:
+            // "Time left in current waqt" mode counts down to the close of the
+            // active window, but only while an obligatory prayer is in progress.
+            // In the sunrise→Dhuhr gap (no obligatory waqt) it falls back to the
+            // next-prayer countdown so the label stays meaningful.
+            if settings.settings.menuBarCountdownMode == .currentWaqt,
+               let waqt = clock.currentWaqt, waqt.isObligatory {
+                let cd = PrayerFormatting.shortCountdown(max(0, waqt.end.timeIntervalSince(clock.now)))
+                if style.showsName {
+                    let name = PrayerFormatting.name(waqt.prayer)
+                    return String(localized: "\(name) \(cd) left", comment: "Menu bar: current prayer + time left in its window, e.g. 'Asr 40m left'")
+                }
+                return String(localized: "\(cd) left", comment: "Menu bar: time left in the current prayer window, e.g. '40m left'")
+            }
+
             let cd = PrayerFormatting.shortCountdown(clock.secondsUntilNext)
-            if let name {
+            if style.showsName {
+                let name = PrayerFormatting.name(next.prayer)
                 return String(localized: "\(name) in \(cd)", comment: "Menu bar: prayer name + countdown, e.g. 'Asr in 1:24'")
             }
             return String(localized: "in \(cd)", comment: "Menu bar: countdown to next prayer, e.g. 'in 1:24'")
+
         case .clock:
             let clk = PrayerFormatting.clock(next.time, in: clock.timeZone)
-            if let name {
+            if style.showsName {
+                let name = PrayerFormatting.name(next.prayer)
                 return "\(name) \(clk)"
             }
             return clk

@@ -25,6 +25,17 @@ struct GeneralTab: View {
                         Text(PrayerFormatting.menuBarStyleName(style)).tag(style)
                     }
                 }
+                if settings.settings.menuBarStyle.value == .countdown {
+                    Picker("Countdown shows", selection: $settings.settings.menuBarCountdownMode) {
+                        ForEach(MenuBarCountdownMode.allCases, id: \.self) { mode in
+                            Text(PrayerFormatting.countdownModeName(mode)).tag(mode)
+                        }
+                    }
+                }
+            }
+
+            Section("Panel") {
+                Toggle("Show Ishraq time", isOn: $settings.settings.showIshraqTime)
             }
 
             Section("Language") {

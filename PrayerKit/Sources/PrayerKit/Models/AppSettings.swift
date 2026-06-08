@@ -37,6 +37,14 @@ public enum MenuBarStyle: String, Codable, Sendable, CaseIterable, Hashable {
     }
 }
 
+/// What the menu bar countdown counts toward (§7.1). The label layout (icon /
+/// name / value) is chosen by `MenuBarStyle`; this picks what a countdown value
+/// *means*, independent of that layout.
+public enum MenuBarCountdownMode: String, Codable, Sendable, CaseIterable, Hashable {
+    case nextPrayer   // time until the next prayer begins — "Asr in 40m" (default)
+    case currentWaqt  // time left in the current prayer's window — "Asr 40m left"
+}
+
 /// How the observer location is determined (§7.6).
 public enum LocationMode: String, Codable, Sendable, CaseIterable, Hashable {
     case automatic   // one-shot CoreLocation
@@ -108,6 +116,8 @@ public struct AppSettings: Codable, Sendable, Equatable {
     public var timeZoneMode: TimeZoneMode
     public var autoDetectMethod: Bool
     public var menuBarStyle: MenuBarStyle
+    public var menuBarCountdownMode: MenuBarCountdownMode
+    public var showIshraqTime: Bool
     public var launchAtLogin: Bool
     public var languageOverride: String?            // BCP-47, nil = follow system
     public var masterNotificationsEnabled: Bool     // global on/off (spec §7.6)
@@ -124,6 +134,8 @@ public struct AppSettings: Codable, Sendable, Equatable {
         timeZoneMode: TimeZoneMode = .system,
         autoDetectMethod: Bool = false,
         menuBarStyle: MenuBarStyle = .iconNameCountdown,
+        menuBarCountdownMode: MenuBarCountdownMode = .nextPrayer,
+        showIshraqTime: Bool = false,
         launchAtLogin: Bool = false,
         languageOverride: String? = nil,
         masterNotificationsEnabled: Bool = true,
@@ -139,6 +151,8 @@ public struct AppSettings: Codable, Sendable, Equatable {
         self.timeZoneMode = timeZoneMode
         self.autoDetectMethod = autoDetectMethod
         self.menuBarStyle = menuBarStyle
+        self.menuBarCountdownMode = menuBarCountdownMode
+        self.showIshraqTime = showIshraqTime
         self.launchAtLogin = launchAtLogin
         self.languageOverride = languageOverride
         self.masterNotificationsEnabled = masterNotificationsEnabled
@@ -165,6 +179,8 @@ public struct AppSettings: Codable, Sendable, Equatable {
         timeZoneMode = try get(.timeZoneMode, d.timeZoneMode)
         autoDetectMethod = try get(.autoDetectMethod, d.autoDetectMethod)
         menuBarStyle = try get(.menuBarStyle, d.menuBarStyle)
+        menuBarCountdownMode = try get(.menuBarCountdownMode, d.menuBarCountdownMode)
+        showIshraqTime = try get(.showIshraqTime, d.showIshraqTime)
         launchAtLogin = try get(.launchAtLogin, d.launchAtLogin)
         languageOverride = try c.decodeIfPresent(String.self, forKey: .languageOverride)
         masterNotificationsEnabled = try get(.masterNotificationsEnabled, d.masterNotificationsEnabled)

@@ -75,6 +75,13 @@ enum PrayerFormatting {
         }
     }
 
+    static func countdownModeName(_ mode: MenuBarCountdownMode) -> String {
+        switch mode {
+        case .nextPrayer: return String(localized: "Next prayer")
+        case .currentWaqt: return String(localized: "Time left in current prayer")
+        }
+    }
+
     static func highLatitudeRuleName(_ rule: HighLatitudeRule) -> String {
         switch rule {
         case .automatic: return String(localized: "Automatic (recommended)")

@@ -74,6 +74,19 @@ final class PrayerClock {
         return max(0, next.time.timeIntervalSince(now))
     }
 
+    /// The prayer window currently in progress (for the "time left" countdown):
+    /// the active prayer and when its window closes. `nil` only in polar edge
+    /// cases where the bounding times are undefined.
+    var currentWaqt: CurrentWaqt? {
+        CurrentWaqt.resolve(at: now, today: today, tomorrow: tomorrow)
+    }
+
+    /// Today's Ishraq start (sunrise + fixed offset), for the optional panel line.
+    var ishraqTime: Date? { today.ishraq() }
+
+    /// Whether the user enabled the optional Ishraq line in the panel.
+    var showsIshraqTime: Bool { settings.settings.showIshraqTime }
+
     /// Today's six times in chronological order.
     var orderedToday: [(prayer: Prayer, time: Date)] { today.ordered }
 

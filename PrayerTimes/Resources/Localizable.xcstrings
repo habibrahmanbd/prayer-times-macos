@@ -1,6 +1,28 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "%@ %@ left": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ يتبقّى %2$@"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@ বাকি"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@ kaldı"
+          }
+        }
+      }
+    },
     "%@ in %@": {
       "localizations": {
         "ar": {
@@ -63,6 +85,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ saati: %2$@."
+          }
+        }
+      }
+    },
+    "%@ left": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يتبقّى %1$@"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ বাকি"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ kaldı"
           }
         }
       }
@@ -525,6 +569,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yalnızca geri sayım"
+          }
+        }
+      }
+    },
+    "Countdown shows": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "العدّ التنازلي يعرض"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "কাউন্টডাউন দেখায়"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geri sayım"
           }
         }
       }
@@ -1101,6 +1167,28 @@
         }
       }
     },
+    "Ishraq": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الإشراق"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ইশরাক"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İşrak"
+          }
+        }
+      }
+    },
     "It's time for %@ (%@).": {
       "localizations": {
         "ar": {
@@ -1519,6 +1607,28 @@
         }
       }
     },
+    "Next prayer": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الصلاة التالية"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "পরবর্তী নামাজ"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sonraki namaz"
+          }
+        }
+      }
+    },
     "None": {
       "localizations": {
         "ar": {
@@ -1625,6 +1735,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sistem Ayarları'nı Aç"
+          }
+        }
+      }
+    },
+    "Panel": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اللوحة"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "প্যানেল"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Panel"
           }
         }
       }
@@ -1871,6 +2003,28 @@
         }
       }
     },
+    "Show Ishraq time": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "إظهار وقت الإشراق"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ইশরাকের সময় দেখান"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İşrak vaktini göster"
+          }
+        }
+      }
+    },
     "Soft chime": {
       "localizations": {
         "ar": {
@@ -2065,6 +2219,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tekbir"
+          }
+        }
+      }
+    },
+    "Time left in current prayer": {
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الوقت المتبقّي للصلاة الحالية"
+          }
+        },
+        "bn": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "বর্তমান নামাজের বাকি সময়"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mevcut namazda kalan süre"
           }
         }
       }

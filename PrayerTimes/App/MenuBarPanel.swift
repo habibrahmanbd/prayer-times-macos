@@ -67,6 +67,12 @@ struct MenuBarPanel: View {
         VStack(spacing: 1) {
             ForEach(clock.orderedToday, id: \.prayer) { entry in
                 row(for: entry.prayer, time: entry.time)
+                // Ishraq (voluntary) sits right after Sunrise, which bounds it.
+                if entry.prayer == .sunrise,
+                   clock.showsIshraqTime,
+                   let ishraq = clock.ishraqTime {
+                    ishraqRow(ishraq)
+                }
             }
         }
     }
@@ -116,6 +122,28 @@ struct MenuBarPanel: View {
             RoundedRectangle(cornerRadius: 8)
                 .fill(isNext ? Color.brand.opacity(0.14) : .clear)
         )
+    }
+
+    /// Voluntary Ishraq (forenoon Duha) prayer, shown in-list right after Sunrise
+    /// when enabled. Mirrors a regular row's layout but never highlights — it is
+    /// not one of the six obligatory times.
+    private func ishraqRow(_ time: Date) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: "sun.and.horizon.fill")
+                .font(.system(size: 13))
+                .frame(width: 18)
+                .foregroundStyle(.secondary)
+
+            Text("Ishraq")
+
+            Spacer()
+
+            Text(PrayerFormatting.clock(time, in: clock.timeZone))
+                .monospacedDigit()
+        }
+        .opacity(time < clock.now ? 0.45 : 1)   // dim once past, like the other rows
+        .padding(.vertical, 6)
+        .padding(.horizontal, 8)
     }
 
     // MARK: Stop Adhan
