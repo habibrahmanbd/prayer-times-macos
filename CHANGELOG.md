@@ -4,6 +4,11 @@ All notable changes to Prayer Times are documented here. This project adheres to
 [Semantic Versioning](https://semver.org) and the
 [Keep a Changelog](https://keepachangelog.com) format.
 
+## [0.5.1] - 2026-06-08
+
+### Fixed
+- **Bengali menu bar countdown was ambiguous.** "Next prayer in X" and the new "time left in the current prayer" countdown both rendered with the same Bengali word (বাকি), so the two modes were indistinguishable. The upcoming countdown now reads with পর ("in"), distinct from বাকি ("left") for the current prayer.
+
 ## [0.5.0] - 2026-06-08
 
 ### Added
