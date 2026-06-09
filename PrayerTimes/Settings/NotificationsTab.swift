@@ -100,12 +100,13 @@ struct NotificationsTab: View {
 
     private var matrixSection: some View {
         Section("Per prayer") {
-            // Column headers.
+            // Column headers (explicit Texts so they localize — Text(variable)
+            // would use the non-localized initializer).
             HStack(spacing: 0) {
                 Spacer(minLength: 0)
-                ForEach(["Notify", "Adhan", "Remind"], id: \.self) { title in
-                    Text(title).frame(width: Self.colWidth)
-                }
+                Text("Notify").frame(width: Self.colWidth)
+                Text("Adhan").frame(width: Self.colWidth)
+                Text("Remind").frame(width: Self.colWidth)
                 Spacer().frame(width: Self.gearWidth)
             }
             .font(.caption2.weight(.semibold))
