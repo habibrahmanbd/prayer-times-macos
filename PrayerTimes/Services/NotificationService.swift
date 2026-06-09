@@ -199,22 +199,15 @@ final class NotificationService: NSObject {
         return [UNNotificationRequest(identifier: id, content: content, trigger: trigger)]
     }
 
-    /// Prayer-entry sound: when full Adhan plays in-process, mute the
-    /// notification sound to avoid double audio (spec §9).
+    /// Prayer-entry sound. The resident agent plays bundled sounds in-process at
+    /// the prayer instant (macOS custom notification sounds are unreliable; see
+    /// `PrayerClock.firePrayerSoundIfCrossed`), so the notification itself stays
+    /// silent for those to avoid double audio. Only `.systemDefault` rides on the
+    /// notification's own sound; `.none` is silent.
     private func soundForEntry(_ cfg: ResolvedNotification) -> UNNotificationSound? {
-        if cfg.playFullAdhan, cfg.sound.hasFullAdhan { return nil }
-        return notificationSound(cfg.sound)
-    }
-
-    private func notificationSound(_ sound: NotificationSound) -> UNNotificationSound? {
-        switch sound {
-        case .none: return nil
+        switch cfg.sound {
         case .systemDefault: return .default
-        default:
-            if let clip = sound.notificationClipFileName {
-                return UNNotificationSound(named: UNNotificationSoundName(clip))
-            }
-            return .default
+        default: return nil   // .none → silent; bundled clips → played in-process
         }
     }
 

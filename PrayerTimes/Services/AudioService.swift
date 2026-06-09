@@ -54,6 +54,19 @@ final class AudioService: NSObject, AVAudioPlayerDelegate {
         play(url)
     }
 
+    /// Play the short alert clip for `sound` in-process at prayer time. The
+    /// resident agent plays the prayer sound itself because macOS custom
+    /// *notification* sounds are unreliable (they often silently fail to play),
+    /// while in-process `AVAudioPlayer` is dependable — it's the same path the
+    /// settings preview uses, so what the user hears on time matches the preview.
+    /// No-op for selections without a bundled clip (`.none` / `.systemDefault`,
+    /// which ride on the notification's own sound instead).
+    func playClip(_ sound: NotificationSound) {
+        guard let fileName = sound.notificationClipFileName,
+              let url = Self.bundleURL(for: fileName) else { return }
+        play(url)
+    }
+
     /// Stop any in-progress playback (Stop Adhan control, spec §7.5).
     func stop() {
         player?.stop()

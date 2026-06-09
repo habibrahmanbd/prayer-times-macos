@@ -148,7 +148,7 @@ final class PrayerClock {
             tomorrow = Self.compute(inputs: inputs, dayOffset: 1, from: now)
             scheduleNotifications()
         }
-        fireAdhanIfCrossed(from: previousNow, to: now)
+        firePrayerSoundIfCrossed(from: previousNow, to: now)
         beginFocusIfCrossed(from: previousNow, to: now)
         previousNow = now
     }
@@ -176,23 +176,28 @@ final class PrayerClock {
         )
     }
 
-    /// Play the full Adhan in-process for any prayer whose instant falls in
-    /// `(start, end]` and has full-Adhan playback enabled (spec §9). Reliable
-    /// because the agent is always running.
+    /// Play the prayer's chosen sound in-process for any prayer whose instant
+    /// falls in `(start, end]` (spec §9). The resident agent plays the sound
+    /// itself — the full Adhan when selected, otherwise the short alert clip —
+    /// because macOS custom *notification* sounds are unreliable; the notification
+    /// banner is delivered silently to avoid double audio (see `NotificationService`).
     ///
     /// A healthy tick advances ~1 s. A much larger gap means the loop was
     /// suspended (system sleep), so any prayer "crossed" in that window already
-    /// passed while asleep — replaying its Adhan now would be wrong. Skip those.
+    /// passed while asleep — replaying its sound now would be wrong. Skip those.
     private static let maxAdhanCatchUp: TimeInterval = 10
     /// Focus may engage a little later than the Adhan plays (see `beginFocusIfCrossed`).
     private static let maxFocusCatchUp: TimeInterval = 120
-    private func fireAdhanIfCrossed(from start: Date, to end: Date) {
+    private func firePrayerSoundIfCrossed(from start: Date, to end: Date) {
         guard settings.settings.masterNotificationsEnabled else { return }
         guard end.timeIntervalSince(start) <= Self.maxAdhanCatchUp else { return }
         for (prayer, time) in today.times where time > start && time <= end {
             let cfg = settings.settings.resolvedNotification(for: prayer)
-            if cfg.notify, cfg.playFullAdhan {
+            guard cfg.notify else { continue }
+            if cfg.playFullAdhan, cfg.sound.hasFullAdhan {
                 audio.playFullAdhan(cfg.sound)
+            } else {
+                audio.playClip(cfg.sound)
             }
         }
     }
