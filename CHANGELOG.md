@@ -4,6 +4,21 @@ All notable changes to Prayer Times are documented here. This project adheres to
 [Semantic Versioning](https://semver.org) and the
 [Keep a Changelog](https://keepachangelog.com) format.
 
+## [0.6.0] - 2026-06-09
+
+### Added
+- **First-launch setup wizard.** A guided, designed walkthrough on first open — location, calculation method and madhab, notifications and permission, menu-bar display, and Focus Mode — so everything is configured in one pass. Re-run it anytime from Settings → General → "Run setup again".
+- **Manual (fixed) time source.** For places where the mosque announces set jamaat times (e.g. Bangladesh), enter the five obligatory times yourself and have the Adhan reminder fire a chosen number of minutes before each. Switch it on in Calculation → Time source.
+- **Focus Mode "Trigger on" and an Opaque blur level.** Choose whether the screen cover engages for the obligatory prayers, all prayer times, or Fajr & Isha only — and an Opaque intensity for a near-solid cover.
+- **"Show Hijri date" toggle** for the dropdown panel.
+
+### Changed
+- **Redesigned Settings.** All five tabs were rebuilt in the modern macOS System Settings style. The Notifications tab is reorganized into shared defaults plus a compact per-prayer matrix (Notify · Adhan · Remind) with an inline override drawer, so per-prayer settings inherit the defaults instead of repeating every field.
+
+### Fixed
+- **The prayer sound now plays reliably at prayer time.** The chosen sound (e.g. Takbir) is played by the app itself at the prayer instant rather than riding on the macOS notification, whose custom sounds often failed to play — so what you hear on time matches the preview.
+- **Focus Mode could miss a prayer when the app was idle.** The app is now kept out of App Nap, so its clock stays accurate and Focus Mode (and in-process Adhan) fire on time.
+
 ## [0.5.1] - 2026-06-08
 
 ### Fixed
