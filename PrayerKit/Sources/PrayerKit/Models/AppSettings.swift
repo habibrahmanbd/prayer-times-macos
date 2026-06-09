@@ -238,6 +238,10 @@ public struct AppSettings: Codable, Sendable, Equatable {
     public var notificationDefaults: NotificationDefaults
     public var notifications: [Prayer: PrayerNotificationConfig]
     public var autoUpdateEnabled: Bool
+    /// Whether the first-launch setup wizard has been completed (or skipped). New
+    /// installs start `false` so the wizard runs once; existing users are migrated
+    /// to `true` so an upgrade never re-triggers it.
+    public var didCompleteOnboarding: Bool
 
     public init(
         methodID: String = "mwl",
@@ -267,7 +271,8 @@ public struct AppSettings: Codable, Sendable, Equatable {
         masterNotificationsEnabled: Bool = true,
         notificationDefaults: NotificationDefaults = NotificationDefaults(),
         notifications: [Prayer: PrayerNotificationConfig] = AppSettings.defaultNotifications,
-        autoUpdateEnabled: Bool = true
+        autoUpdateEnabled: Bool = true,
+        didCompleteOnboarding: Bool = false
     ) {
         self.methodID = methodID
         self.manualParameters = manualParameters
@@ -297,6 +302,7 @@ public struct AppSettings: Codable, Sendable, Equatable {
         self.notificationDefaults = notificationDefaults
         self.notifications = notifications
         self.autoUpdateEnabled = autoUpdateEnabled
+        self.didCompleteOnboarding = didCompleteOnboarding
     }
 
     /// Resilient decoding: every field is optional-with-default so that adding a
@@ -337,6 +343,7 @@ public struct AppSettings: Codable, Sendable, Equatable {
         notificationDefaults = try get(.notificationDefaults, d.notificationDefaults)
         notifications = try get(.notifications, d.notifications)
         autoUpdateEnabled = try get(.autoUpdateEnabled, d.autoUpdateEnabled)
+        didCompleteOnboarding = try get(.didCompleteOnboarding, d.didCompleteOnboarding)
     }
 
     // MARK: Resolved notification behaviour

@@ -6,6 +6,8 @@ import PrayerKit
 struct GeneralTab: View {
     @Bindable var settings: SettingsStore
     let updates: UpdateService
+    /// Dev-only hook to re-run the setup wizard (nil in release builds).
+    var runSetupAgain: (() -> Void)? = nil
     @State private var loginError: String?
 
     var body: some View {
@@ -54,6 +56,16 @@ struct GeneralTab: View {
 
             Section("Updates") {
                 Toggle("Check for updates automatically", isOn: autoUpdateBinding)
+            }
+
+            if let runSetupAgain {
+                Section("Setup") {
+                    Button {
+                        runSetupAgain()
+                    } label: {
+                        Label("Run setup again", systemImage: "wand.and.stars")
+                    }
+                }
             }
         }
         .formStyle(.grouped)

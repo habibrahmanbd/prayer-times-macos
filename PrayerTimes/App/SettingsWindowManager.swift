@@ -18,18 +18,21 @@ final class SettingsWindowManager: NSObject, NSWindowDelegate, NSToolbarDelegate
     private let updates: UpdateService
     private let notifications: NotificationService
     private let focus: FocusModeController
+    /// Dev-only hook to re-run the setup wizard from the General tab (nil in release).
+    private let runSetupAgain: (() -> Void)?
     private var window: NSWindow?
     private let log = Logger(subsystem: "co.tareq.prayertimes", category: "settings")
 
     /// Fixed pane size so the window doesn't jump between tabs; tall panes scroll.
     private static let paneSize = NSSize(width: 480, height: 520)
 
-    init(settings: SettingsStore, audio: AudioService, updates: UpdateService, notifications: NotificationService, focus: FocusModeController) {
+    init(settings: SettingsStore, audio: AudioService, updates: UpdateService, notifications: NotificationService, focus: FocusModeController, runSetupAgain: (() -> Void)? = nil) {
         self.settings = settings
         self.audio = audio
         self.updates = updates
         self.notifications = notifications
         self.focus = focus
+        self.runSetupAgain = runSetupAgain
     }
 
     // MARK: Tabs
@@ -124,7 +127,7 @@ final class SettingsWindowManager: NSObject, NSWindowDelegate, NSToolbarDelegate
     private func pane(for tab: Tab) -> AnyView {
         let content: AnyView
         switch tab {
-        case .general: content = AnyView(GeneralTab(settings: settings, updates: updates))
+        case .general: content = AnyView(GeneralTab(settings: settings, updates: updates, runSetupAgain: runSetupAgain))
         case .location: content = AnyView(LocationTimeTab(settings: settings))
         case .calculation: content = AnyView(CalculationTab(settings: settings))
         case .notifications: content = AnyView(NotificationsTab(settings: settings, audio: audio, notifications: notifications))

@@ -49,7 +49,30 @@ final class SettingsStore {
         self.settings = loaded ?? Self.firstRunDefaults
         migrateHighLatitudeRuleIfNeeded()
         migrateMenuBarStyleIfNeeded()
+        migrateOnboardingIfNeeded(wasFirstRun: loaded == nil)
     }
+
+    /// The first-launch setup wizard should run on a genuine fresh install only.
+    /// An existing user who upgrades carries a persisted blob that predates the
+    /// `didCompleteOnboarding` flag (so it decodes to `false`); flip those to
+    /// `true` once so the wizard never ambushes someone mid-use. A real first run
+    /// (no persisted settings) keeps `false`, so `needsOnboarding` is true exactly
+    /// once.
+    private func migrateOnboardingIfNeeded(wasFirstRun: Bool) {
+        guard !wasFirstRun, !settings.didCompleteOnboarding else { return }
+        settings.didCompleteOnboarding = true   // didSet re-persists
+    }
+
+    // MARK: Onboarding
+
+    /// Whether the first-launch setup wizard still needs to run.
+    var needsOnboarding: Bool { !settings.didCompleteOnboarding }
+
+    /// Mark the wizard finished (or skipped) so it won't show again.
+    func completeOnboarding() { settings.didCompleteOnboarding = true }
+
+    /// Clear the flag so the wizard can be re-run from Settings → General.
+    func resetOnboarding() { settings.didCompleteOnboarding = false }
 
     /// One-time migration (v0.3.0 → next): before `.automatic` existed, the
     /// high-latitude rule defaulted to `.none`, which silently discarded each

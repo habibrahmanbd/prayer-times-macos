@@ -9,6 +9,7 @@ struct PrayerTimesApp: App {
     @State private var settings: SettingsStore
     @State private var clock: PrayerClock
     private let settingsWindow: SettingsWindowManager
+    private let onboarding: OnboardingWindowManager
     private let updates = UpdateService()
 
     init() {
@@ -19,7 +20,11 @@ struct PrayerTimesApp: App {
         let focus = FocusModeController()
         _settings = State(initialValue: settings)
         _clock = State(initialValue: PrayerClock(settings: settings, notifications: notifications, audio: audio, focus: focus))
-        settingsWindow = SettingsWindowManager(settings: settings, audio: audio, updates: updates, notifications: notifications, focus: focus)
+        let onboarding = OnboardingWindowManager(settings: settings, notifications: notifications)
+        self.onboarding = onboarding
+
+        // Let the General tab relaunch the setup wizard at any time.
+        settingsWindow = SettingsWindowManager(settings: settings, audio: audio, updates: updates, notifications: notifications, focus: focus, runSetupAgain: { onboarding.restart() })
 
         // Mirror the persisted preference into Sparkle.
         updates.automaticallyChecksForUpdates = settings.settings.autoUpdateEnabled
@@ -36,7 +41,10 @@ struct PrayerTimesApp: App {
                 checkForUpdates: { updates.checkForUpdates() }
             )
         } label: {
+            // The label renders at launch, so its `.task` is a reliable hook to
+            // present the first-run wizard once the app is up.
             MenuBarLabel(clock: clock, settings: settings)
+                .task { onboarding.showIfNeeded() }
         }
         .menuBarExtraStyle(.window)
     }
