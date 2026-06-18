@@ -15,6 +15,7 @@ final class FocusModeController {
 
     private var windows: [NSWindow] = []
     private var keyMonitor: Any?
+    private var globalKeyMonitor: Any?
     private var releaseTask: Task<Void, Never>?
     private var priorPolicy: NSApplication.ActivationPolicy = .accessory
     private var priorPresentation: NSApplication.PresentationOptions = []
@@ -57,6 +58,7 @@ final class FocusModeController {
         isActive = false
         releaseTask?.cancel(); releaseTask = nil
         if let keyMonitor { NSEvent.removeMonitor(keyMonitor); self.keyMonitor = nil }
+        if let globalKeyMonitor { NSEvent.removeMonitor(globalKeyMonitor); self.globalKeyMonitor = nil }
 
         let closing = windows
         windows = []
@@ -84,14 +86,17 @@ final class FocusModeController {
         priorPresentation = NSApp.presentationOptions
 
         NSApp.setActivationPolicy(.regular)
-        NSApp.activate(ignoringOtherApps: true)
         // Hide the Dock and menu bar and steer the user away from app-switching.
         NSApp.presentationOptions = [.hideDock, .hideMenuBar, .disableProcessSwitching,
                                      .disableAppleMenu, .disableHideApplication]
 
         let endsAt = Date().addingTimeInterval(duration)
         let scripture = FocusScripture.random()
+        // Build windows first so there are real on-screen windows to receive focus,
+        // then activate — this ensures the key-window routing is established before
+        // the local key monitor begins listening.
         buildWindows(prayer: prayer, scripture: scripture, endsAt: endsAt, emergencyExit: emergencyExit, intensity: intensity)
+        NSApp.activate(ignoringOtherApps: true)
         installKeyMonitor(emergencyExit: emergencyExit)
 
         NotificationCenter.default.addObserver(
@@ -139,11 +144,18 @@ final class FocusModeController {
             window.contentView = blur
 
             window.setFrame(screen.frame, display: true)
-            window.orderFrontRegardless()
+            // The primary display window claims key status via makeKeyAndOrderFront
+            // (processed through the normal activation path) so keyboard events are
+            // reliably routed here. Secondary windows are ordered front without
+            // stealing key — only one window should be key at a time.
+            if windows.isEmpty {
+                window.makeKeyAndOrderFront(nil)
+            } else {
+                window.orderFrontRegardless()
+            }
             window.animator().alphaValue = 1
             windows.append(window)
         }
-        windows.first?.makeKey()
     }
 
     @objc private func screensChanged() {
@@ -159,13 +171,26 @@ final class FocusModeController {
     /// Swallow keystrokes while the block is up; Cmd+Esc releases it when the
     /// emergency exit is enabled. (Global system shortcuts like Cmd+Opt+Esc are
     /// handled by the WindowServer and intentionally remain available.)
+    ///
+    /// Two monitors are installed:
+    /// - A *local* monitor catches key events already routed to this app's windows.
+    /// - A *global* monitor catches key events routed to any *other* app — a
+    ///   fallback for the rare race where the WindowServer hasn't yet made the
+    ///   overlay window key by the time the user presses Cmd+Esc.
     private func installKeyMonitor(emergencyExit: Bool) {
         keyMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp, .flagsChanged]) { [weak self] event in
             if emergencyExit, event.type == .keyDown,
                event.keyCode == 53, event.modifierFlags.contains(.command) {   // ⌘ + Esc
-                self?.end()
+                Task { @MainActor [weak self] in self?.end() }
             }
             return nil   // swallow everything else
+        }
+
+        guard emergencyExit else { return }
+        globalKeyMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
+            if event.keyCode == 53, event.modifierFlags.contains(.command) {   // ⌘ + Esc
+                Task { @MainActor [weak self] in self?.end() }
+            }
         }
     }
 
