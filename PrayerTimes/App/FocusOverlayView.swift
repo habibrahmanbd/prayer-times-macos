@@ -107,7 +107,7 @@ struct FocusOverlayView: View {
             Spacer()
 
             if emergencyExitEnabled {
-                Text(String(localized: "Press ⌘ Esc to exit", comment: "Focus overlay: emergency exit hint"))
+                Text(String(localized: "Press ⌘ Esc or ⌘ X to exit", comment: "Focus overlay: emergency exit hint"))
                     .font(.callout)
                     .foregroundStyle(.white.opacity(0.4))
                     .padding(.bottom, 44)

@@ -122,6 +122,9 @@ final class FocusModeController {
             let window = OverlayWindow(
                 contentRect: screen.frame, styleMask: [.borderless],
                 backing: .buffered, defer: false)
+            if emergencyExit {
+                window.onEmergencyExit = { [weak self] in self?.end() }
+            }
             window.isReleasedWhenClosed = false
             window.level = NSWindow.Level(rawValue: Int(CGShieldingWindowLevel()))
             window.isOpaque = false
@@ -176,22 +179,28 @@ final class FocusModeController {
     /// - A *local* monitor catches key events already routed to this app's windows.
     /// - A *global* monitor catches key events routed to any *other* app — a
     ///   fallback for the rare race where the WindowServer hasn't yet made the
-    ///   overlay window key by the time the user presses Cmd+Esc.
+    ///   overlay window key by the time the user presses the emergency shortcut.
     private func installKeyMonitor(emergencyExit: Bool) {
-        keyMonitor = NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .keyUp, .flagsChanged]) { [weak self] event in
-            if emergencyExit, event.type == .keyDown,
-               event.keyCode == 53, event.modifierFlags.contains(.command) {   // ⌘ + Esc
-                Task { @MainActor [weak self] in self?.end() }
-            }
-            return nil   // swallow everything else
-        }
+        // Local key swallowing is handled in `OverlayWindow.sendEvent(_:)` so the
+        // same path both blocks input and handles emergency exit.
+        keyMonitor = nil
 
         guard emergencyExit else { return }
         globalKeyMonitor = NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { [weak self] event in
-            if event.keyCode == 53, event.modifierFlags.contains(.command) {   // ⌘ + Esc
+            if Self.isEmergencyExitShortcut(event) {
                 Task { @MainActor [weak self] in self?.end() }
             }
         }
+    }
+
+    fileprivate static func isEmergencyExitShortcut(_ event: NSEvent, commandDownFallback: Bool = false) -> Bool {
+        guard event.type == .keyDown else { return false }
+        let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
+        guard flags.contains(.command) || commandDownFallback else { return false }
+
+        if event.keyCode == 53 { return true } // Esc
+        if event.charactersIgnoringModifiers?.lowercased() == "x" { return true } // X
+        return false
     }
 
     // MARK: Safeguards
@@ -228,6 +237,43 @@ final class FocusModeController {
 /// Borderless windows can't become key by default; the overlay needs key status to
 /// receive the emergency-exit keystroke and to keep focus on itself.
 private final class OverlayWindow: NSWindow {
+    var onEmergencyExit: (() -> Void)?
+    private var commandIsDown = false
+
     override var canBecomeKey: Bool { true }
     override var canBecomeMain: Bool { true }
+
+    override func sendEvent(_ event: NSEvent) {
+        if event.type == .flagsChanged {
+            let flags = event.modifierFlags.intersection(.deviceIndependentFlagsMask)
+            commandIsDown = flags.contains(.command)
+            return
+        }
+        if event.type == .keyDown {
+            if FocusModeController.isEmergencyExitShortcut(event, commandDownFallback: commandIsDown) {
+                onEmergencyExit?()
+            }
+            return
+        }
+        if event.type == .keyUp {
+            return
+        }
+        super.sendEvent(event)
+    }
+
+    override func performKeyEquivalent(with event: NSEvent) -> Bool {
+        if FocusModeController.isEmergencyExitShortcut(event, commandDownFallback: commandIsDown) {
+            onEmergencyExit?()
+            return true
+        }
+        return super.performKeyEquivalent(with: event)
+    }
+
+    override func keyDown(with event: NSEvent) {
+        if FocusModeController.isEmergencyExitShortcut(event, commandDownFallback: commandIsDown) {
+            onEmergencyExit?()
+            return
+        }
+        super.keyDown(with: event)
+    }
 }

@@ -48,7 +48,7 @@ struct FocusModeTab: View {
                     Toggle(isOn: $settings.settings.focusEmergencyExitEnabled) {
                         VStack(alignment: .leading, spacing: 2) {
                             Text("Emergency exit")
-                            Text("Allow ⌘ Esc to exit early")
+                            Text("Allow ⌘ Esc or ⌘ X to exit early")
                                 .font(.caption).foregroundStyle(.secondary)
                         }
                     }
